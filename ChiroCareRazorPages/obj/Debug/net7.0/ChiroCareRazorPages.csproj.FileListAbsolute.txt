@@ -285,3 +285,4 @@
 /Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.pdb
 /Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.genruntimeconfig.cache
 /Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/obj/Debug/net7.0/ref/ChiroCareRazorPages.dll
+/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.sourcelink.json

@@ -51,6 +51,7 @@ namespace ChiroCareRazorPages.Pages.Invoices
                 {
                     Service service = await _context.Services.FirstOrDefaultAsync(s => s.ServiceId == ser);
                     invoiceService.Add(service);
+                    Invoice.InvoiceTotal += service.ServicePrice;
                 }
 
                 Invoice.ListServices = invoiceService;

@@ -66,16 +66,19 @@
                 <span asp-validation-for="Invoice.InvoiceNote" class="text-danger"></span>
             </div>
             <div class="form-group">
-              <form method="post" id="totalForm" asp-page="/Invoices/Create" asp-page-handler="Calculate">
-                  <select id="total" multiple="multiple" asp-items="ViewBag.Services" asp-for="serviceIds"></select>
-                  <div class="form-group">
-                      <label asp-for="Invoice.InvoiceTotal" class="control-label">Thành tiền</label>
-                      <input asp-for="Total" class="form-control" disabled=""/>
-                      <span asp-validation-for="Total" class="text-danger"></span>
-                  </div>
-              </form>
-                
+                <label asp-for="Invoice.InvoiceTotal" class="control-label">Dịch vụ: </label>
+                <select  multiple="multiple" asp-items="ViewBag.Services" asp-for="serviceIds"></select>
             </div>
+            @* <div class="form-group"> *@
+            @*   <form method="post" id="totalForm" asp-page="/Invoices/Create" asp-page-handler="Calculate"> *@
+            @*       <div class="form-group"> *@
+            @*           <label asp-for="Invoice.InvoiceTotal" class="control-label">Thành tiền</label> *@
+            @*           <input asp-for="Total" class="form-control" disabled=""/> *@
+            @*           <span asp-validation-for="Total" class="text-danger"></span> *@
+            @*       </div> *@
+            @*   </form> *@
+            @* *@
+            @* </div> *@
                      
             
             <div class="form-group">
@@ -106,13 +109,6 @@
                 });
             });
         </script>
-    <script>
-           $(function() {
-                          $("#total").change(function() {
-                              $("#totalForm").submit(); // Submit the form when the input field loses focus
-                          });
-                      });
-    </script>
             
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

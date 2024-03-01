@@ -9,3 +9,4 @@
 /Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/obj/Debug/net7.0/refint/BusinessObject.dll
 /Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/obj/Debug/net7.0/BusinessObject.pdb
 /Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/obj/Debug/net7.0/ref/BusinessObject.dll
+/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/obj/Debug/net7.0/BusinessObject.sourcelink.json

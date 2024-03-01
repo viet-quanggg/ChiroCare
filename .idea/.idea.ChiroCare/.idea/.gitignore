@@ -11,3 +11,8 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+BusinessObject/obj/Debug/net7.0/BusinessObject.sourcelink.json
+DataAccess/obj/Debug/net7.0/DataAccess.sourcelink.json
+ .idea/.idea.ChiroCare/.idea/vcs.xml
+Repository/obj/Debug/net7.0/Repository.sourcelink.json
+
