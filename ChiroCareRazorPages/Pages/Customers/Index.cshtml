@@ -1,0 +1,74 @@
+@page
+@model ChiroCareRazorPages.Pages.Customers.IndexModel
+@using System.Data;
+    <script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Danh Sách Bệnh Nhân</h1>
+
+<p>
+    <a asp-page="Create">Tạo Hồ Sơ Mới</a>
+</p>
+
+@if (Model.User != null && Model.User.Count > 0)
+{
+    <div class="container">
+        <table class="table" id="UserTable">
+            <thead>
+                <tr>
+                    <th>Số điện thoại</th>
+                    <th>Họ và Tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Vai trò</th>
+                    <th>Email</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.User)
+                {
+                    <tr>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.FullName</td>
+                        <td>@item.Dob</td>
+                        <td>@if (item.Gender == 1)
+                            {
+                                <text>Nam</text>
+                            }
+                            else
+                            {
+                                <text>Nữ</text>
+                            }</td>
+                        <td>@item.Role</td>
+                        <td>@item.EmailAddress</td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.UserId">Chỉnh sửa</a> |
+                            <a asp-page="./Details" asp-route-id="@item.UserId">Chi tiết</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.UserId">Xoá</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <h3>Không có người dùng nào để hiển thị!</h3>
+}
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('#UserTable').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+}

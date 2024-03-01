@@ -1,0 +1,95 @@
+@page
+@model ChiroCareRazorPages.Pages.Invoices.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Danh sách hoá đơn</h1>
+
+<p>
+    <a asp-page="Create">Tạo hoá đơn mới</a>
+</p>
+<table class="table" id="invoiceTable">
+    <thead>
+        <tr>
+            <th>
+                Tên khách hàng
+                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceStatus) *@
+            </th>
+            <th>
+                Trạng thái
+                @* @Html.DisplayNameFor(model => model.Invoice[0].CreateDate) *@
+            </th>
+            <th>
+                Ngày tạo
+                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceDiagnose) *@
+            </th>
+            <th>
+                Chuẩn đoán
+                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceDescription) *@
+            </th>
+            <th>
+                Chi tiết
+                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceNote) *@
+            </th>
+            <th>
+                Note
+                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceTotal) *@
+            </th>
+            <th>
+                Thành tiền
+                @* @Html.DisplayNameFor(model => model.Invoice[0].Patient) *@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Invoice) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.FullName)
+            </td>
+            <td>
+               @if (item.InvoiceStatus == 1)
+               {
+                   <Text>Đã thanh toán</Text>
+               }else if (item.InvoiceStatus == 0)
+               {
+                   <Text>Chưa thanh toán</Text>
+               }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceDiagnose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceNote)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceTotal)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.InvoiceId">Chi tiết</a> |
+                <a asp-page="./Delete" asp-route-id="@item.InvoiceId">Xoá</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('#invoiceTable').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+}

@@ -1,0 +1,72 @@
+@page
+@model ChiroCareRazorPages.Pages.Services.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Quản Lý Dịch Vụ</h1>
+
+<p>
+    <a asp-page="Create">Tạo Dịch Vụ Mới</a>
+</p>
+<p>
+    <a asp-page="/ServiceCategories/Index">Quản Lý Phân Loại Dịch Vụ</a>
+</p>
+<table class="table" id="serviceId">
+    <thead>
+        <tr>
+            <th>
+                Tên dịch vụ
+                @* @Html.DisplayNameFor(model => model.Service[0].ServiceName) *@
+            </th>
+            <th>
+                Đơn giá
+                @* @Html.DisplayNameFor(model => model.Service[0].ServicePrice) *@
+            </th>
+            <th>
+                Mô tả
+                @* @Html.DisplayNameFor(model => model.Service[0].ServiceDescription) *@
+            </th>
+            <th>
+                Phân loại
+                @* @Html.DisplayNameFor(model => model.Service[0].ServiceCategory) *@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Service) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServicePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceCategory.CategoryName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ServiceId">Chỉnh Sửa</a> |
+                <a asp-page="./Details" asp-route-id="@item.ServiceId">Chi Tiết</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ServiceId">Xoá</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('#serviceId').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+}

@@ -1,0 +1,38 @@
+@page
+@model ChiroCareRazorPages.Pages.ServiceCategories.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Danh Sách Phân Loại</h1>
+
+<p>
+    <a asp-page="Create">Tạo Phân Loại Mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên Phân Loại
+                @* @Html.DisplayNameFor(model => model.ServiceCategory[0].CategoryName) *@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ServiceCategory) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CategoryId">Chỉnh sửa</a> |
+                <a asp-page="./Details" asp-route-id="@item.CategoryId">Chi tiết</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CategoryId">Xoá</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

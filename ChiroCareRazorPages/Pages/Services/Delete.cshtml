@@ -1,0 +1,51 @@
+@page
+@model ChiroCareRazorPages.Pages.Services.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Xoá Dịch Vụ</h1>
+
+<h3>Xác nhận xoá dịch vụ này?</h3>
+<div>
+    <h4>Thông tin dịch vụ</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Tên dịch vụ
+            @* @Html.DisplayNameFor(model => model.Service.ServiceName) *@
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service.ServiceName)
+        </dd>
+        <dt class="col-sm-2">
+            Đơn giá
+            @* @Html.DisplayNameFor(model => model.Service.ServicePrice) *@
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service.ServicePrice)
+        </dd>
+        <dt class="col-sm-2">
+            Mô tả
+            @* @Html.DisplayNameFor(model => model.Service.ServiceDescription) *@
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service.ServiceDescription)
+        </dd>
+        <dt class="col-sm-2">
+            Phân loại
+            @* @Html.DisplayNameFor(model => model.Service.ServiceCategory) *@
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Service.ServiceCategory.CategoryName)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Service.ServiceId" />
+        <input type="submit" value="Xoá" class="btn btn-danger" /> |
+        <a asp-page="./Index">Trở về danh sách</a>
+    </form>
+</div>
