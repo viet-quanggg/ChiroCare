@@ -26,7 +26,7 @@ public class ChiroCareContext : DbContext
     {
         if (!options.IsConfigured)
         {
-            options.UseSqlServer("Server=tcp:chirocare-db.database.windows.net,1433;Initial Catalog=chiroDB;Persist Security Info=False;User ID=chirocaredb;Password=123qwe!@#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            options.UseSqlServer("Server=(local);Database=ChiroCare;uid=sa;pwd=123456@Aa;Trusted_Connection=false;TrustServerCertificate=True;");
         }
     }
 

@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<ChiroCareContext>(options => options.UseSqlServer("Server=tcp:chirocare-db.database.windows.net,1433;Initial Catalog=chiroDB;Persist Security Info=False;User ID=chirocaredb;Password=123qwe!@#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+builder.Services.AddDbContext<ChiroCareContext>(options => options.UseSqlServer("Server=(local);Database=ChiroCare;uid=sa;pwd=123456@Aa;Trusted_Connection=false;TrustServerCertificate=True;"));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
