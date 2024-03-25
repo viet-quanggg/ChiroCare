@@ -55,17 +55,21 @@
             @* @Html.DisplayNameFor(model => model.User.Role) *@
         </dt>
         <dd class="col-sm-10">
-            @{
-                if (Model.User.Role == 0)
-                {
-                    <Text>Bệnh nhân</Text>
-                }
-           
-                if (Model.User.Role == 1)
-                {
-                    <Text>Nhân viên</Text>
-                }
-            }
+            @Html.DisplayFor(model => model.User.Role)
+        </dd>
+         <dt class="col-sm-2">
+                    Nghề nghiệp
+                    @* @Html.DisplayNameFor(model => model.User.Dob) *@
+                </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.Job)
+        </dd>
+        <dt class="col-sm-2">
+            Tiền sử bệnh
+            @* @Html.DisplayNameFor(model => model.User.Dob) *@
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.History)
         </dd>
         <dt class="col-sm-2">
             Email
@@ -74,8 +78,12 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.User.EmailAddress)
         </dd>
+       
         <hr />
         <h4>Hoá đơn của @Model.User.FullName</h4>
+        <p>
+            <a asp-page="Invoices/Create">Tạo Hoá Đơn Mới</a>
+        </p>
         @if (Model.User.UserInvoices != null && Model.User.UserInvoices.Count > 0)
         {
             <div class="container">
@@ -84,9 +92,9 @@
                     <tr>
                         <th>Ngày xuất</th>
                         <th>Trạng thái</th>
-                        <th>Chuẩn đoán</th>
+                        <th>Chi tiết</th>
+                        <th>Số lượng buổi</th>
                         <th>Thành tiền</th>
-                        <th>Note</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -95,22 +103,35 @@
                         {
                             <tr>
                                 <td>@item.CreateDate</td>
-                                <td>M
-                                    @if (item.InvoiceStatus == 1)
-                                    {
-                                        <Text>Đã thanh toán</Text>
-
-                                    }
-                                    else if (item.InvoiceStatus == 0)
-                                    {
-                                        <Text>Chưa thanh toán</Text>
-                                    }
-                                </td>
-                                <td>@item.InvoiceDiagnose</td>
-                                <td>@item.InvoiceTotal</td>
-                                <td>@item.InvoiceNote</td>
                                 <td>
-                                    <a asp-page="/Invoices/Details" asp-route-id="@item.InvoiceId">Chi tiết</a>
+                                  @item.InvoiceStatus
+                                </td>
+                                <td>@item.InvoiceDescription</td>
+                                <td>@item.Quantity</td>
+                                @{
+                                    // Assuming @item.InvoiceTotal is a decimal value
+                                    decimal invoiceTotal = @item.InvoiceTotal;
+                                
+                                    // Creating a CultureInfo object for Vietnamese culture
+                                    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
+                                
+                                    // Formatting the invoiceTotal to VND
+                                    string formattedTotal = invoiceTotal.ToString("C", culture);
+                                }
+                                
+                                <td>@formattedTotal</td>
+                                <td>
+                                    <a asp-page="/Invoices/Details" asp-route-id="@item.InvoiceId">Chi tiết </a>
+                                     @if (item.ListSessions.Count < item.Quantity || item.ListSessions.Count < 0)
+                                    {
+                                        <a asp-page="/Sessions/Create" asp-route-id="@item.InvoiceId">| Cập nhật buổi khám</a>
+                                    }
+                                    @if (item.ListSessions.Count == item.Quantity) 
+                                    {
+                                        <a> | Đã khám đủ buổi </a>                                                                      
+                                    }
+                                   
+                                    
                                 </td>
                             </tr>
                         }

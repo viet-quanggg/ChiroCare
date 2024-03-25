@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using BusinessObject;
+using BusinessObject.ChiroEnums;
 
 public class User
 {
@@ -18,18 +19,20 @@ public class User
     public string FullName { get; set; }
 
     [DataType(DataType.Date)]
+    [Required(ErrorMessage = "Ngày sinh không thể để trống!")]
     public DateTime Dob { get; set; }
-
+    
+    [Required(ErrorMessage = "Giới tính không thể để trống!")]
     public int Gender { get; set; }
-
+    public string? Job { get; set; }
+    public string? History { get; set; }
     [Required]
-    public int Role { get; set; }
+    public Role Role { get; set; }
 
     [DataType(DataType.EmailAddress)]
-    [AllowNull]
-    public string EmailAddress { get; set; }
+    public string? EmailAddress { get; set; }
 
     public List<Session> UserSessions { get; set; } = new List<Session>();
     public List<Invoice> UserInvoices { get; set; } = new List<Invoice>();
-    public List<WorkShift> UserWorkShifts { get; set; } = new List<WorkShift>();
+    // public List<WorkShift>? UserWorkShifts { get; set; } = new List<WorkShift>();
 }

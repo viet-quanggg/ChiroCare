@@ -4,6 +4,6 @@ namespace Repository.IRepository;
 
 public interface IInvoiceRepository
 {
-    Task CreateNewInvocice(Invoice invoice);
+    Task CreateNewInvoice(Invoice invoice);
     Task<Invoice> GetInvoiceDetail(Guid guid);
 }

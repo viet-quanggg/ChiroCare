@@ -19,7 +19,7 @@
                 @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceStatus) *@
             </th>
             <th>
-                Trạng thái
+               Thanh toán
                 @* @Html.DisplayNameFor(model => model.Invoice[0].CreateDate) *@
             </th>
             <th>
@@ -27,15 +27,15 @@
                 @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceDiagnose) *@
             </th>
             <th>
-                Chuẩn đoán
-                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceDescription) *@
-            </th>
-            <th>
                 Chi tiết
                 @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceNote) *@
             </th>
             <th>
                 Note
+                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceNote) *@
+            </th>
+            <th>
+               Số lượng buổi khám
                 @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceTotal) *@
             </th>
             <th>
@@ -51,20 +51,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Patient.FullName)
             </td>
-            <td>
-               @if (item.InvoiceStatus == 1)
-               {
-                   <Text>Đã thanh toán</Text>
-               }else if (item.InvoiceStatus == 0)
-               {
-                   <Text>Chưa thanh toán</Text>
-               }
-            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.InvoiceStatus)
+            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InvoiceDiagnose)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.InvoiceDescription)
@@ -73,11 +64,32 @@
                 @Html.DisplayFor(modelItem => item.InvoiceNote)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.InvoiceTotal)
+                @Html.DisplayFor(modelItem => item.Quantity)
             </td>
+            
+           @{
+               // Assuming @item.InvoiceTotal is a decimal value
+               decimal invoiceTotal = @item.InvoiceTotal;
+           
+               // Creating a CultureInfo object for Vietnamese culture
+               System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
+           
+               // Formatting the invoiceTotal to VND
+               string formattedTotal = invoiceTotal.ToString("C", culture);
+           }
+           
+           <td>@formattedTotal</td>
             <td>
-                <a asp-page="./Details" asp-route-id="@item.InvoiceId">Chi tiết</a> |
-                <a asp-page="./Delete" asp-route-id="@item.InvoiceId">Xoá</a>
+                <a asp-page="./Details" asp-route-id="@item.InvoiceId">Chi tiết</a>
+                @if (item.ListSessions.Count == item.Quantity)
+                {
+                    <a> | Đã khám đủ số buổi!</a>
+                }
+                @if (item.ListSessions.Count < item.Quantity)
+                {
+                    <a asp-page="/Sessions/Create" asp-route-id="@item.InvoiceId"> | Cập nhật buổi khám</a>
+
+                }
             </td>
         </tr>
 }

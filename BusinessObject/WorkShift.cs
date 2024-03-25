@@ -6,7 +6,7 @@ public class WorkShift
     [Key]
     public Guid ShiftId { get; set; }
 
-    public Guid TherapistId { get; set; }
+    // public Guid TherapistId { get; set; }
 
     public DateTime StartDateTime { get; set; }
 
@@ -16,5 +16,5 @@ public class WorkShift
 
     public string ShiftNote { get; set; }
     
-    public User ShiftUser { get; set; }
+    // public User ShiftUser { get; set; }
 }

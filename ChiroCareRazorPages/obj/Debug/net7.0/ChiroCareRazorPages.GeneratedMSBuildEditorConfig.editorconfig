@@ -58,10 +58,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW52b2ljZXMvRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/Pages/Invoices/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW52b2ljZXMvRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/Pages/Invoices/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW52b2ljZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -108,6 +104,26 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/Pages/Services/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2VydmljZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/Pages/Sessions/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2Vzc2lvbnMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/Pages/Sessions/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2Vzc2lvbnMvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/Pages/Sessions/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2Vzc2lvbnMvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/Pages/Sessions/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2Vzc2lvbnMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/Pages/Sessions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2Vzc2lvbnMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/Pages/Shared/_ValidationScriptsPartial.cshtml]

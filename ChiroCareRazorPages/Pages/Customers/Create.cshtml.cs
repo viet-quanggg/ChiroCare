@@ -30,11 +30,11 @@ namespace ChiroCareRazorPages.Pages.Customers
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          // if (!ModelState.IsValid || _context.Users == null || User == null)
-          //   {
-          //       return Page();
-          //   }
-          User.Role = 0;
+            // if (!ModelState.IsValid || _context.Users == null || User == null)
+            //   {
+            //       return Page();
+            //   }
+            // User.Role = 0;
             _context.Users.Add(User);
             await _context.SaveChangesAsync();
 

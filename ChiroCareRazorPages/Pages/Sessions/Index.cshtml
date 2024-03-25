@@ -1,0 +1,87 @@
+@page
+@model ChiroCareRazorPages.Pages.Sessions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Theo dõi liệu trình</h1>
+
+<table class="table" id="sessionTable">
+    <thead>
+    <tr>
+        <th>
+            @* @Html.DisplayNameFor(model => model.Session[0].SessionInfo) *@
+            Ngày khám
+        </th>
+        <th>
+            @* @Html.DisplayNameFor(model => model.Session[0].SessionInfo) *@
+            Ngày hẹn khám
+        </th>
+        <th>
+            @* @Html.DisplayNameFor(model => model.Session[0].SessionInfo) *@
+            Liệu trình
+        </th>
+        <th>
+            @* @Html.DisplayNameFor(model => model.Session[0].Status) *@
+            Chi tiết
+        </th>
+        <th>
+            @* @Html.DisplayNameFor(model => model.Session[0].Patient) *@
+            Khách hàng
+        </th>
+        <th>
+            @* @Html.DisplayNameFor(model => model.Session[0].Therapist) *@
+            Người khám
+        </th>
+        <th>
+            @* @Html.DisplayNameFor(model => model.Session[0].SessionInfo) *@
+            Trạng thái
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Session) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SessionDate)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.SessionAppointment)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.SessionTreatment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SessionInfo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Therapist.FullName)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Status)
+            </th>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.SessionId">Chỉnh sửa</a> |
+                <a asp-page="./Delete" asp-route-id="@item.SessionId">Xoá</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('#sessionTable').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+}

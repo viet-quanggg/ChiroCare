@@ -6,27 +6,27 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Tạo Hồ Sơ Bệnh Nhân</h1>
+<h1>Tạo Hồ Sơ Bệnh Án</h1>
 
-<h4>Thông tin bệnh nhân</h4>
+<h4>Thông tin cá nhân</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="User.PhoneNumber" class="control-label">Số điện thoại</label>
-                <input asp-for="User.PhoneNumber" class="form-control" />
+                <label asp-for="User.PhoneNumber" class="control-label">Số Điện Thoại</label>
+                <input required="" asp-for="User.PhoneNumber" class="form-control" />
                 <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="User.FullName" class="control-label">Họ và Tên</label>
-                <input asp-for="User.FullName" class="form-control" />
+                <label asp-for="User.FullName" class="control-label">Họ Và Tên</label>
+                <input required="" asp-for="User.FullName" class="form-control" />
                 <span asp-validation-for="User.FullName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="User.Dob" class="control-label">Ngày sinh</label>
-                <input asp-for="User.Dob" class="form-control" />
+                <label asp-for="User.Dob" class="control-label">Ngày Sinh</label>
+                <input required="" asp-for="User.Dob" class="form-control" />
                 <span asp-validation-for="User.Dob" class="text-danger"></span>
             </div>
            <div class="form-group">
@@ -34,20 +34,35 @@
                <select asp-for="User.Gender" class="form-control">
                    <option value="1">Nam</option>
                    <option value="0">Nữ</option>
+                   <option value="2">Khác</option>
                </select>
                <span asp-validation-for="User.Gender" class="text-danger"></span>
            </div>
-            @* *@
-            @* <div class="form-group"> *@
-            @*     <label asp-for="User.Role" class="control-label"></label> *@
-            @*     <input asp-for="User.Role" class="form-control" /> *@
-            @*     <span asp-validation-for="User.Role" class="text-danger"></span> *@
-            @* </div> *@
+            <div class="form-group">
+                <label asp-for="User.Job" class="control-label">Nghề Nghiệp</label>
+                <input  asp-for="User.Job" class="form-control" />
+                <span asp-validation-for="User.Job" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.History" class="control-label">Tiền sử bệnh</label>
+                <input asp-for="User.History" class="form-control" />
+                <span asp-validation-for="User.History" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="User.EmailAddress" class="control-label">Email</label>
                 <input asp-for="User.EmailAddress" class="form-control" />
                 <span asp-validation-for="User.EmailAddress" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="User.Role" class="control-label">Vai trò</label>
+                <select asp-for="User.Role" class="form-control">
+                    <option value="1">NGƯỜI KHÁM</option>
+                    <option value="0">KHÁCH HÀNG</option>
+                </select>
+                
+                <span asp-validation-for="User.EmailAddress" class="text-danger"></span>
+            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Tạo" class="btn btn-primary" />
             </div>
@@ -56,7 +71,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Trở về danh sách</a>
+    <a asp-page="Index">Quay về danh sách</a>
 </div>
 
 @section Scripts {

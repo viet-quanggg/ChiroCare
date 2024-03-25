@@ -42,9 +42,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ServiceName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServicePrice)
-            </td>
+            @{
+                // Assuming @item.InvoiceTotal is a decimal value
+                decimal invoiceTotal = @item.ServicePrice;
+            
+                // Creating a CultureInfo object for Vietnamese culture
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
+            
+                // Formatting the invoiceTotal to VND
+                string formattedTotal = invoiceTotal.ToString("C", culture);
+            }
+            
+            <td>@formattedTotal</td>
             <td>
                 @Html.DisplayFor(modelItem => item.ServiceDescription)
             </td>

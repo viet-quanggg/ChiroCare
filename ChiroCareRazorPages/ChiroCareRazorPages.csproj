@@ -24,6 +24,7 @@
       <Folder Include="Pages\Invoices\" />
       <Folder Include="Pages\ServiceCategories\" />
       <Folder Include="Pages\Services\" />
+      <Folder Include="Pages\Sessions\" />
     </ItemGroup>
 
     <ItemGroup>

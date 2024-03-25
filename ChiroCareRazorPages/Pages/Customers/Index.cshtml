@@ -25,7 +25,6 @@
                     <th>Ngày sinh</th>
                     <th>Giới tính</th>
                     <th>Vai trò</th>
-                    <th>Email</th>
                     <th>Chức năng</th>
                 </tr>
             </thead>
@@ -44,8 +43,7 @@
                             {
                                 <text>Nữ</text>
                             }</td>
-                        <td>@item.Role</td>
-                        <td>@item.EmailAddress</td>
+                        <th>@item.Role</th>
                         <td>
                             <a asp-page="./Edit" asp-route-id="@item.UserId">Chỉnh sửa</a> |
                             <a asp-page="./Details" asp-route-id="@item.UserId">Chi tiết</a> |

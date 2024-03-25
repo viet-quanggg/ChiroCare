@@ -6,9 +6,9 @@ namespace Repository.Repository;
 
 public class InvoiceRepository : IInvoiceRepository
 {
-    public async Task CreateNewInvocice(Invoice invoice)
+    public async Task CreateNewInvoice(Invoice invoice)
     {
-       await InvoiceManagement.Instance.CreateNewInvoice(invoice);
+         InvoiceManagement.Instance.CreateNewInvoice(invoice);
     }
 
     public Task<Invoice> GetInvoiceDetail(Guid guid) => InvoiceManagement.Instance.GetInvoiceDetail(guid);

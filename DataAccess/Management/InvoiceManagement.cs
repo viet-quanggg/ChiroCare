@@ -30,12 +30,11 @@ public class InvoiceManagement
         _context = new ChiroCareContext();
         try
         {
-            Invoice existedInvoice = await _context.Invoices.FirstOrDefaultAsync(i => i.InvoiceId == invoice.InvoiceId);
-            if (existedInvoice != null)
+            var existedInvoice = await _context.Invoices.FirstOrDefaultAsync(i => i.InvoiceId == invoice.InvoiceId);
+            if (existedInvoice == null)
             {
-                existedInvoice = invoice; 
-                _context.Invoices.AddAsync(existedInvoice);
-                await _context.SaveChangesAsync();
+                 await _context.Invoices.AddAsync(invoice);
+                 await _context.SaveChangesAsync();
             }
         }
         catch (Exception ex)
@@ -52,6 +51,8 @@ public class InvoiceManagement
             var invoice =  _context.Invoices
                 .Include(i => i.Patient)
                 .Include(i => i.ListServices)
+                .Include(i => i.ListSessions)
+                    .ThenInclude(i => i.Therapist)
                 .FirstOrDefaultAsync(i => i.InvoiceId == id);
         
             return invoice;

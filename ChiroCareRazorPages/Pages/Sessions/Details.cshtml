@@ -1,0 +1,62 @@
+@page
+@model ChiroCareRazorPages.Pages.Sessions.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Session</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @* @Html.DisplayNameFor(model => model.Session.SessionInfo) *@
+            Chi tiết
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Session.SessionInfo)
+        </dd>
+        <dt class="col-sm-2">
+            @* @Html.DisplayNameFor(model => model.Session.SessionTreatment) *@
+            Liệu trình
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Session.SessionTreatment)
+        </dd>
+        <dt class="col-sm-2">
+            @* @Html.DisplayNameFor(model => model.Session.SessionDate) *@
+            Ngày khám
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Session.SessionDate)
+        </dd>
+        <dt class="col-sm-2">
+            @* @Html.DisplayNameFor(model => model.Session.Status) *@
+            Trạng thái
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Session.Status)
+        </dd>
+        <dt class="col-sm-2">
+            @* @Html.DisplayNameFor(model => model.Session.Patient) *@
+            Tên bệnh nhân
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Session.Patient.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            @* @Html.DisplayNameFor(model => model.Session.Therapist) *@
+            Người điều trị
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Session.Therapist.FullName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Session?.SessionId">Chỉnh sửa</a> |
+    <a asp-page="./Index">Quay về danh sách</a>
+</div>

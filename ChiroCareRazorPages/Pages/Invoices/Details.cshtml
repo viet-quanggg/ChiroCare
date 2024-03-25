@@ -22,20 +22,20 @@
         <dt class="col-sm-2">
             Trạng thái hoá đơn
         </dt>
-        <dd class="col-sm-10">
+        <dt class="col-sm-10">
             @Html.DisplayFor(model => model.Invoice.InvoiceStatus)
-        </dd>
+        </dt>
+        <dt class="col-sm-2">
+            Thanh toán
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Invoice.InvoiceMethod)
+        </dt>
         <dt class="col-sm-2">
             Ngày xuất
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Invoice.CreateDate)
-        </dd>
-        <dt class="col-sm-2">
-            Chuẩn đoán
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Invoice.InvoiceDiagnose)
         </dd>
         <dt class="col-sm-2">
             Chi tiết
@@ -44,20 +44,19 @@
             @Html.DisplayFor(model => model.Invoice.InvoiceDescription)
         </dd>
         <dt class="col-sm-2">
-            Note
+            Số lượng buổi 
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Invoice.InvoiceNote)
+            @Html.DisplayFor(model => model.Invoice.Quantity)
         </dd>
         <dt class="col-sm-2">
             Thành tiền
         </dt>
-        <dd class="col-sm-10">
+        <dt class="col-sm-10">
             @Html.DisplayFor(model => model.Invoice.InvoiceTotal)
-        </dd>
-
+        </dt>
         <hr/>
-        <h4>Danh sách dịch vụ</h4>
+        <h4>Dịch vụ sử dụng</h4>
         @if (Model.Invoice.ListServices != null & @Model.Invoice.ListServices.Count > 0)
         {
             <table>
@@ -73,7 +72,18 @@
                     <tr>
 
                         <td>@item.ServiceName</td>
-                        <td>@item.ServicePrice</td>
+                        @{
+                            // Assuming @item.InvoiceTotal is a decimal value
+                            decimal invoiceTotal = @item.ServicePrice;
+                        
+                            // Creating a CultureInfo object for Vietnamese culture
+                            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
+                        
+                            // Formatting the invoiceTotal to VND
+                            string formattedTotal = invoiceTotal.ToString("C", culture);
+                        }
+                        
+                        <td>@formattedTotal</td>
 
                     </tr>
                 }
@@ -84,9 +94,63 @@
         {
             <h3>Hoá đơn không có dịch vụ!</h3>
         }
+        <hr/>
+        <h4>Theo dõi liệu trình</h4>
+        @if (Model.Invoice.ListSessions.Count < Model.Invoice.Quantity)
+        {
+            <a asp-page="/Sessions/Create" asp-route-id="@Model.Invoice.InvoiceId">Cập nhật buổi khám</a>
+        }@if (Model.Invoice.ListSessions.Count == Model.Invoice.Quantity)
+         {
+             <h3>Đã khám đủ số buổi!</h3>
+         }
+        @if (Model.Invoice.ListSessions != null || Model.Invoice.ListSessions.Count > 0)
+        {
+            <table id="sessionTable">
+                <thead>
+                <tr>
+                    <th>Ngày khám</th>
+                    <th>Liệu trình</th>
+                    <th>Chi tiết</th>
+                    <th>Người điều trị</th>
+                    <th>Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in @Model.Invoice.ListSessions)
+                {
+                    <tr>
+
+                        <td>@item.SessionDate</td>
+                        <td>@item.SessionTreatment</td>
+                        <td>@item.SessionInfo</td>
+                        <td>@item.Therapist.FullName</td>
+                        <th>@item.Status</th>
+
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h3>Chưa có buổi khám nào !</h3>
+        }
+        
         
     </dl>
 </div>
 <div>
     <a asp-page="./Index">Trở về danh sách</a>
 </div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('#sessionTable').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+}
+

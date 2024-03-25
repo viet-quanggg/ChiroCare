@@ -25,7 +25,9 @@ namespace ChiroCareRazorPages.Pages.Customers
         {
             if (_context.Users != null)
             {
-                User = await _context.Users.ToListAsync();
+                User = await _context.Users
+                    .OrderByDescending(a => a.UserId)
+                    .ToListAsync();
             }
         }
     }
