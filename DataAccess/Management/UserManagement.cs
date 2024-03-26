@@ -31,7 +31,6 @@ public class UserManagement
         {
             var user =  _context.Users
                 .Include(u => u.UserInvoices)
-                .ThenInclude(invoice => invoice.ListServices)
                 .Include(u => u.UserSessions)
                 .FirstOrDefaultAsync(u => u.UserId == id);
         
@@ -75,7 +74,6 @@ public class UserManagement
                 .Include(u => u.UserInvoices)
                     .ThenInclude(u => u.ListSessions)
                 .Include(u => u.UserInvoices)
-                    .ThenInclude(s => s.ListServices)
                 .Include(u => u.UserSessions)
                 .FirstOrDefaultAsync(u => u.PhoneNumber.Equals(phoneNumber));
         

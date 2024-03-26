@@ -82,7 +82,7 @@
         <hr />
         <h4>Hoá đơn của @Model.User.FullName</h4>
         <p>
-            <a asp-page="Invoices/Create">Tạo Hoá Đơn Mới</a>
+            <a asp-data-id="@Model.User.PhoneNumber" asp-page="Invoices/Create">Tạo Hoá Đơn Mới</a>
         </p>
         @if (Model.User.UserInvoices != null && Model.User.UserInvoices.Count > 0)
         {

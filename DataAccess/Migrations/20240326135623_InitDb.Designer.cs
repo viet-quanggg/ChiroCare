@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ChiroCareContext))]
-    [Migration("20240325181655_InitDb")]
+    [Migration("20240326135623_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -68,6 +68,21 @@ namespace DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Invoices");
+                });
+
+            modelBuilder.Entity("BusinessObject.InvoiceService", b =>
+                {
+                    b.Property<Guid>("InvoiceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ServiceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("InvoiceId", "ServiceId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("InvoiceServices");
                 });
 
             modelBuilder.Entity("BusinessObject.Session", b =>
@@ -131,9 +146,6 @@ namespace DataAccess.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("InvoiceId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int?>("ServiceCategoryCategoryId")
                         .HasColumnType("int");
 
@@ -151,10 +163,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ServiceId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("InvoiceId");
 
                     b.HasIndex("ServiceCategoryCategoryId");
 
@@ -257,6 +265,25 @@ namespace DataAccess.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("BusinessObject.InvoiceService", b =>
+                {
+                    b.HasOne("BusinessObject.Invoice", "Invoice")
+                        .WithMany("InvoiceServices")
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Service", "Service")
+                        .WithMany("InvoiceServices")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("BusinessObject.Session", b =>
                 {
                     b.HasOne("BusinessObject.Invoice", null)
@@ -291,15 +318,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Service", b =>
                 {
                     b.HasOne("ServiceCategory", "ServiceCategory")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("BusinessObject.Invoice", null)
-                        .WithMany("ListServices")
-                        .HasForeignKey("InvoiceId");
-
-                    b.HasOne("ServiceCategory", null)
                         .WithMany("Services")
                         .HasForeignKey("ServiceCategoryCategoryId");
 
@@ -312,7 +330,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("BusinessObject.Invoice", b =>
                 {
-                    b.Navigation("ListServices");
+                    b.Navigation("InvoiceServices");
 
                     b.Navigation("ListSessions");
                 });
@@ -320,6 +338,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("BusinessObject.Session", b =>
                 {
                     b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("Service", b =>
+                {
+                    b.Navigation("InvoiceServices");
                 });
 
             modelBuilder.Entity("ServiceCategory", b =>

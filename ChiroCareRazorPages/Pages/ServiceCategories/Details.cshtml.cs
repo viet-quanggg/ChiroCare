@@ -27,7 +27,9 @@ namespace ChiroCareRazorPages.Pages.ServiceCategories
                 return NotFound();
             }
 
-            var servicecategory = await _context.ServiceCategories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            var servicecategory = await _context.ServiceCategories
+                .Include(c => c.Services)
+                .FirstOrDefaultAsync(m => m.CategoryId == id);
             if (servicecategory == null)
             {
                 return NotFound();

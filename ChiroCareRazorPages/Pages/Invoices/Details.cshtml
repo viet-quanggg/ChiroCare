@@ -57,7 +57,7 @@
         </dt>
         <hr/>
         <h4>Dịch vụ sử dụng</h4>
-        @if (Model.Invoice.ListServices != null & @Model.Invoice.ListServices.Count > 0)
+        @if (Model.Invoice.InvoiceServices != null & @Model.Invoice.InvoiceServices.Count > 0)
         {
             <table>
                 <thead>
@@ -67,24 +67,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in @Model.Invoice.ListServices)
+                @foreach (var item in @Model.Invoice.InvoiceServices)
                 {
                     <tr>
-
-                        <td>@item.ServiceName</td>
+        
+                        <td>@item.Service.ServiceName</td>
                         @{
                             // Assuming @item.InvoiceTotal is a decimal value
-                            decimal invoiceTotal = @item.ServicePrice;
-                        
+                            decimal invoiceTotal = @item.Service.ServicePrice;
+        
                             // Creating a CultureInfo object for Vietnamese culture
                             System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
-                        
+        
                             // Formatting the invoiceTotal to VND
                             string formattedTotal = invoiceTotal.ToString("C", culture);
                         }
-                        
+        
                         <td>@formattedTotal</td>
-
+        
                     </tr>
                 }
                 </tbody>

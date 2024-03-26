@@ -137,23 +137,12 @@ namespace DataAccess.Migrations
                     ServicePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ServiceDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
-                    InvoiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ServiceCategoryCategoryId = table.Column<int>(type: "int", nullable: true),
                     SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Services", x => x.ServiceId);
-                    table.ForeignKey(
-                        name: "FK_Services_Invoices_InvoiceId",
-                        column: x => x.InvoiceId,
-                        principalTable: "Invoices",
-                        principalColumn: "InvoiceId");
-                    table.ForeignKey(
-                        name: "FK_Services_ServiceCategories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "ServiceCategories",
-                        principalColumn: "CategoryId");
                     table.ForeignKey(
                         name: "FK_Services_ServiceCategories_ServiceCategoryCategoryId",
                         column: x => x.ServiceCategoryCategoryId,
@@ -164,6 +153,30 @@ namespace DataAccess.Migrations
                         column: x => x.SessionId,
                         principalTable: "Sessions",
                         principalColumn: "SessionId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InvoiceServices",
+                columns: table => new
+                {
+                    InvoiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InvoiceServices", x => new { x.InvoiceId, x.ServiceId });
+                    table.ForeignKey(
+                        name: "FK_InvoiceServices_Invoices_InvoiceId",
+                        column: x => x.InvoiceId,
+                        principalTable: "Invoices",
+                        principalColumn: "InvoiceId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InvoiceServices_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "ServiceId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -177,14 +190,9 @@ namespace DataAccess.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_CategoryId",
-                table: "Services",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Services_InvoiceId",
-                table: "Services",
-                column: "InvoiceId");
+                name: "IX_InvoiceServices_ServiceId",
+                table: "InvoiceServices",
+                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Services_ServiceCategoryCategoryId",
@@ -221,10 +229,13 @@ namespace DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Services");
+                name: "InvoiceServices");
 
             migrationBuilder.DropTable(
                 name: "WorkShifts");
+
+            migrationBuilder.DropTable(
+                name: "Services");
 
             migrationBuilder.DropTable(
                 name: "ServiceCategories");

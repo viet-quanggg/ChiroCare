@@ -24,7 +24,7 @@ public class Session
     [DataType(DataType.DateTime)]
     public DateTime? SessionAppointment { get; set; }
     public SessionStatus Status { get; set; }
-    public Guid? InvoiceId { get; set; }
+    public Guid InvoiceId { get; set; }
     public Invoice? Invoice { get; set; }
     
     public ICollection<Service>? Services { get; set; }

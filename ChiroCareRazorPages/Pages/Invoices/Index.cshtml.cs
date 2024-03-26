@@ -28,7 +28,6 @@ namespace ChiroCareRazorPages.Pages.Invoices
                 Invoice = await _context.Invoices
                     .Include(i => i.Patient)
                     .Include(i => i.ListSessions)
-                    .Include(i => i.ListServices)
                 .ToListAsync();
             }
         }

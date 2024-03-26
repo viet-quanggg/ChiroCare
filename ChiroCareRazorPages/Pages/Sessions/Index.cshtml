@@ -24,16 +24,11 @@
             Liệu trình
         </th>
         <th>
-            @* @Html.DisplayNameFor(model => model.Session[0].Status) *@
-            Chi tiết
+            SĐT Khách hàng
         </th>
         <th>
             @* @Html.DisplayNameFor(model => model.Session[0].Patient) *@
             Khách hàng
-        </th>
-        <th>
-            @* @Html.DisplayNameFor(model => model.Session[0].Therapist) *@
-            Người khám
         </th>
         <th>
             @* @Html.DisplayNameFor(model => model.Session[0].SessionInfo) *@
@@ -55,14 +50,11 @@
                 @Html.DisplayFor(modelItem => item.SessionTreatment)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SessionInfo)
+                @Html.DisplayFor(modelItem => item.Patient.PhoneNumber)
             </td>
-            <td>
+            <td><a asp-page="/Customers/Details" asp-route-id="@item.Patient.UserId">
                 @Html.DisplayFor(modelItem => item.Patient.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Therapist.FullName)
-            </td>
+            </a></td>
             <th>
                 @Html.DisplayFor(modelItem => item.Status)
             </th>

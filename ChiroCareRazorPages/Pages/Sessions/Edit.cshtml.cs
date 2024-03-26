@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject;
+using BusinessObject.ChiroEnums;
 using DataAccess.Data;
 
 namespace ChiroCareRazorPages.Pages.Sessions
@@ -22,22 +23,28 @@ namespace ChiroCareRazorPages.Pages.Sessions
 
         [BindProperty]
         public Session Session { get; set; } = default!;
-
+        public Guid invoiceId { get; set; }
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
+            HttpContext.Session.Clear();
             if (id == null || _context.Sessions == null)
             {
                 return NotFound();
             }
 
-            var session =  await _context.Sessions.FirstOrDefaultAsync(m => m.SessionId == id);
+            var session =  await _context.Sessions
+                .Include(s => s.Invoice)
+                .ThenInclude(s => s.Patient)
+                .Include(s => s.Patient)
+                .FirstOrDefaultAsync(m => m.SessionId == id);
             if (session == null)
             {
                 return NotFound();
             }
             Session = session;
-           ViewData["PatientId"] = new SelectList(_context.Users, "UserId", "FullName");
-           ViewData["TherapistId"] = new SelectList(_context.Users, "UserId", "FullName");
+            invoiceId = session.InvoiceId;
+           ViewData["PatientId"] = new SelectList(_context.Users.Where(u => u.UserId == Session.PatientId), "UserId", "FullName");
+           ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role == Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
             return Page();
         }
 
@@ -45,11 +52,9 @@ namespace ChiroCareRazorPages.Pages.Sessions
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
+            
+            Session.SessionDate = DateTime.Now;
+            Session.InvoiceId = invoiceId;
             _context.Attach(Session).State = EntityState.Modified;
 
             try

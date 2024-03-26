@@ -47,18 +47,20 @@ namespace ChiroCareRazorPages.Pages.Invoices
             var invoiceUser = await _userRepository.GetUserDetailByPhoneNumber(phoneNum);
             if (invoiceUser != null)
             {
-                List<Service> invoiceService = new List<Service>();
-                foreach (var ser in serviceIds)
-                {
-                    Service service = await _context.Services.FirstOrDefaultAsync(s => s.ServiceId == ser);
-                    invoiceService.Add(service);
-                    Invoice.InvoiceTotal += Invoice.Quantity * service.ServicePrice;
-                }
-
-                Invoice.ListServices = invoiceService;
-                // Invoice.InvoiceStatus = 0;
+                
+                
                 Invoice.CreateDate = DateTime.Now;
                 _context.Invoices.Add(Invoice);
+                foreach (var ser in serviceIds)
+                {
+                    Service service = await _context.Services.AsNoTracking().FirstOrDefaultAsync(s => s.ServiceId == ser);
+                    Invoice.InvoiceServices.Add(new InvoiceService
+                    {
+                        InvoiceId = Invoice.InvoiceId,
+                        ServiceId = service.ServiceId
+                    });
+                    Invoice.InvoiceTotal += Invoice.Quantity * service.ServicePrice;
+                }
             
                 Invoice.Patient = invoiceUser;
             
@@ -75,18 +77,18 @@ namespace ChiroCareRazorPages.Pages.Invoices
                     await _context.SaveChangesAsync();
                     User createdUser = await _userRepository.GetUserDetailByPhoneNumber(phoneNum);
                 
-                    List<Service> invoiceService = new List<Service>();
-                    foreach (var ser in serviceIds)
-                    {
-                        Service service = await _context.Services.FirstOrDefaultAsync(s => s.ServiceId == ser);
-                        invoiceService.Add(service);
-                        Invoice.InvoiceTotal += Invoice.Quantity * service.ServicePrice;
-                    }
-
-                    Invoice.ListServices = invoiceService;
-                    // Invoice.InvoiceStatus = 0;
                     Invoice.CreateDate = DateTime.Now;
                     _context.Invoices.Add(Invoice);
+                    foreach (var ser in serviceIds)
+                    {
+                        Service service = await _context.Services.AsNoTracking().FirstOrDefaultAsync(s => s.ServiceId == ser);
+                        Invoice.InvoiceServices.Add(new InvoiceService
+                        {
+                            InvoiceId = Invoice.InvoiceId,
+                            ServiceId = service.ServiceId
+                        });
+                        Invoice.InvoiceTotal += Invoice.Quantity * service.ServicePrice;
+                    }
             
                     Invoice.Patient = createdUser;
             

@@ -17,6 +17,7 @@ public class ChiroCareContext : DbContext
     
     public DbSet<Invoice> Invoices { get; set; }
     public DbSet<Service> Services { get; set; }
+    public DbSet<InvoiceService> InvoiceServices { get; set; }
     public DbSet<ServiceCategory> ServiceCategories { get; set; }
     public DbSet<Session> Sessions { get; set; }
     public DbSet<User> Users { get; set; }
@@ -74,9 +75,7 @@ public class ChiroCareContext : DbContext
         {
             entity.HasKey(e => e.InvoiceId);
             entity.Property(e => e.CreateDate).IsRequired().HasColumnType("datetime");
-            entity.Property(e => e.InvoiceDescription)
-                .HasMaxLength(1000); // Example: Setting max length for InvoiceDiagnose
-            entity.Property(e => e.InvoiceDescription).IsRequired();
+            entity.Property(e => e.InvoiceDescription).HasMaxLength(1000).IsRequired();
             entity.HasOne(e => e.Patient).WithMany().HasForeignKey(e => e.PatientId).IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
             entity.HasMany(e => e.ListSessions).WithOne().HasForeignKey("InvoiceId").IsRequired()
@@ -87,11 +86,26 @@ public class ChiroCareContext : DbContext
         {
             entity.HasKey(e => e.ServiceId);
             entity.Property(e => e.ServiceName).IsRequired();
-            entity.Property(e => e.ServicePrice)
-                .HasColumnType("decimal(18,2)"); // Example: Setting precision and scale for ServicePrice
-            entity.HasOne(e => e.ServiceCategory).WithMany().HasForeignKey(e => e.CategoryId)
-                .OnDelete(DeleteBehavior.NoAction);
+            entity.Property(e => e.ServicePrice).HasColumnType("decimal(18,2)");
+            // Configure the relationship with ServiceCategory if needed
+            // entity.HasOne(e => e.ServiceCategory).WithMany().HasForeignKey(e => e.CategoryId)
+            //     .OnDelete(DeleteBehavior.NoAction);
         });
+
+// Configure many-to-many relationship between Invoice and Service
+        modelBuilder.Entity<InvoiceService>()
+            .HasKey(isr => new { isr.InvoiceId, isr.ServiceId });
+
+        modelBuilder.Entity<InvoiceService>()
+            .HasOne(isr => isr.Invoice)
+            .WithMany(inv => inv.InvoiceServices)
+            .HasForeignKey(isr => isr.InvoiceId);
+
+        modelBuilder.Entity<InvoiceService>()
+            .HasOne(isr => isr.Service)
+            .WithMany(s => s.InvoiceServices)
+            .HasForeignKey(isr => isr.ServiceId);
+
 
         // modelBuilder.Entity<WorkShift>(entity =>
         // {

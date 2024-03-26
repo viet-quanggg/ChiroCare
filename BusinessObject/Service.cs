@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using BusinessObject;
 
-public class Service 
+public class Service
 {
     [Key]
     public Guid ServiceId { get; set; }
@@ -14,8 +14,11 @@ public class Service
     [Required(ErrorMessage = "Giá dịch vụ không thể để trống!")]
     [Range(0, 9999999, ErrorMessage = "Giá dịch vụ phải từ 0đ đến 9.999.999đ")]
     public decimal ServicePrice { get; set; }
+
     public string? ServiceDescription { get; set; }
     public int? CategoryId { get; set; }
     public ServiceCategory? ServiceCategory { get; set; }
-    
+
+    // Navigation property for InvoiceService entities representing the many-to-many relationship with Invoice
+    public ICollection<InvoiceService> InvoiceServices { get; set; } = new List<InvoiceService>();
 }

@@ -50,9 +50,10 @@ public class InvoiceManagement
         {
             var invoice =  _context.Invoices
                 .Include(i => i.Patient)
-                .Include(i => i.ListServices)
                 .Include(i => i.ListSessions)
                     .ThenInclude(i => i.Therapist)
+                .Include(i => i.InvoiceServices)
+                .ThenInclude(i => i.Service)
                 .FirstOrDefaultAsync(i => i.InvoiceId == id);
         
             return invoice;

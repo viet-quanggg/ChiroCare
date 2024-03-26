@@ -26,6 +26,7 @@ namespace ChiroCareRazorPages.Pages.Sessions
             if (_context.Sessions != null)
             {
                 Session = await _context.Sessions
+                    .Include(s => s.Invoice)
                 .Include(s => s.Patient)
                 .Include(s => s.Therapist).ToListAsync();
             }
