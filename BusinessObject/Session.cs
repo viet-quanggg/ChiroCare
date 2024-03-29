@@ -15,9 +15,7 @@ public class Session
 
     public Guid? PatientId { get; set; }
     public User? Patient { get; set; }
-
-    public string SessionTreatment { get; set; }
-    [Required(ErrorMessage = "Thông tin buổi khám không được trống!")]
+    public string? SessionTreatment { get; set; }
     public string? SessionInfo { get; set; }
     [DataType(DataType.DateTime)]
     public DateTime SessionDate { get; set; }
@@ -25,7 +23,6 @@ public class Session
     public DateTime? SessionAppointment { get; set; }
     public SessionStatus Status { get; set; }
     public Guid InvoiceId { get; set; }
-    public Invoice? Invoice { get; set; }
+    public Invoice Invoice { get; set; }
     
-    public ICollection<Service>? Services { get; set; }
 }

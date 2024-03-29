@@ -46,13 +46,17 @@ public class ChiroCareContext : DbContext
         modelBuilder.Entity<Session>(entity =>
         {
             entity.HasKey(e => e.SessionId);
-            entity.Property(e => e.SessionInfo).IsRequired().HasMaxLength(1000)
+            entity.Property(e => e.SessionInfo).HasMaxLength(1000)
                 .HasColumnName("SessionInfo"); // Example: Setting column name explicitly
             entity.Property(e => e.SessionDate).HasColumnType("datetime"); // Example: Setting column data type
             entity.HasOne(e => e.Patient).WithMany(u => u.UserSessions).HasForeignKey(e => e.PatientId).IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
             entity.HasOne(e => e.Therapist).WithMany().HasForeignKey(e => e.TherapistId).IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
+                entity.HasOne(s => s.Invoice)               // Each session has one invoice
+                .WithMany(i => i.ListSessions)            // Each invoice can have many sessions
+                .HasForeignKey(s => s.InvoiceId)     // Foreign key property
+                .OnDelete(DeleteBehavior.NoAction); 
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -78,8 +82,6 @@ public class ChiroCareContext : DbContext
             entity.Property(e => e.InvoiceDescription).HasMaxLength(1000).IsRequired();
             entity.HasOne(e => e.Patient).WithMany().HasForeignKey(e => e.PatientId).IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
-            entity.HasMany(e => e.ListSessions).WithOne().HasForeignKey("InvoiceId").IsRequired()
-                .OnDelete(DeleteBehavior.NoAction);
         });
 
         modelBuilder.Entity<Service>(entity =>
@@ -87,9 +89,10 @@ public class ChiroCareContext : DbContext
             entity.HasKey(e => e.ServiceId);
             entity.Property(e => e.ServiceName).IsRequired();
             entity.Property(e => e.ServicePrice).HasColumnType("decimal(18,2)");
-            // Configure the relationship with ServiceCategory if needed
-            // entity.HasOne(e => e.ServiceCategory).WithMany().HasForeignKey(e => e.CategoryId)
-            //     .OnDelete(DeleteBehavior.NoAction);
+            entity.HasOne(s => s.ServiceCategory)               // Each session has one invoice
+                .WithMany(i => i.Services)            // Each invoice can have many sessions
+                .HasForeignKey(s => s.CategoryId)     // Foreign key property
+                .OnDelete(DeleteBehavior.NoAction); 
         });
 
 // Configure many-to-many relationship between Invoice and Service

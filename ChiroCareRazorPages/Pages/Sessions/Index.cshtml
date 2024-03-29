@@ -1,71 +1,94 @@
 @page
+@using BusinessObject.ChiroEnums
 @model ChiroCareRazorPages.Pages.Sessions.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Theo dõi liệu trình";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Theo dõi liệu trình</h1>
-
-<table class="table" id="sessionTable">
-    <thead>
-    <tr>
-        <th>
-            @* @Html.DisplayNameFor(model => model.Session[0].SessionInfo) *@
-            Ngày khám
-        </th>
-        <th>
-            @* @Html.DisplayNameFor(model => model.Session[0].SessionInfo) *@
-            Ngày hẹn khám
-        </th>
-        <th>
-            @* @Html.DisplayNameFor(model => model.Session[0].SessionInfo) *@
-            Liệu trình
-        </th>
-        <th>
-            SĐT Khách hàng
-        </th>
-        <th>
-            @* @Html.DisplayNameFor(model => model.Session[0].Patient) *@
-            Khách hàng
-        </th>
-        <th>
-            @* @Html.DisplayNameFor(model => model.Session[0].SessionInfo) *@
-            Trạng thái
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Session) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SessionDate)
-            </td>
-            <th>
-                @Html.DisplayFor(modelItem => item.SessionAppointment)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.SessionTreatment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Patient.PhoneNumber)
-            </td>
-            <td><a asp-page="/Customers/Details" asp-route-id="@item.Patient.UserId">
-                @Html.DisplayFor(modelItem => item.Patient.FullName)
-            </a></td>
-            <th>
-                @Html.DisplayFor(modelItem => item.Status)
-            </th>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.SessionId">Chỉnh sửa</a> |
-                <a asp-page="./Delete" asp-route-id="@item.SessionId">Xoá</a>
-            </td>
-        </tr>
+<style>
+    .card{
+    margin-bottom: 20px;
     }
-    </tbody>
-</table>
+
+
+    h1 {
+           color: #333;
+           font-size: 24px;
+           margin-bottom: 20px;
+       }
+   
+       #sessionTable th {
+           background-color: #f2f2f2;
+           border: 1px solid #dee2e6;
+       }
+   
+       #sessionTable th,
+       #sessionTable td {
+           border: 1px solid #dee2e6;
+           padding: 8px;
+       }
+   
+       #sessionTable tbody tr:hover {
+           background-color: #f5f5f5;
+       }
+
+</style>
+
+<h1>Theo dõi liệu trình</h1>
+<div class="card">
+    <div class="table-responsive">
+<table class="table" id="sessionTable">
+            <thead>
+                <tr>
+                    <th>Ngày khám</th>
+                    <th>Ngày hẹn khám</th>
+                    <th>Liệu trình</th>
+                    <th>SĐT Khách hàng</th>
+                    <th>Khách hàng</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Session)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.SessionDate)</td>
+                        <td style="color: #4169E1" ><strong>@Html.DisplayFor(modelItem => item.SessionAppointment)</strong></td>
+                        <td>@Html.DisplayFor(modelItem => item.SessionTreatment)</td>
+                        <td><strong>@Html.DisplayFor(modelItem => item.Patient.PhoneNumber)</strong></td>
+                        <td>
+                            <a class="btn btn-link" asp-page="/Invoices/Details" asp-route-id="@item.Invoice.InvoiceId">@Html.DisplayFor(modelItem => item.Patient.FullName)</a>
+                        </td>
+                        <td>
+                            @if (item.Status == SessionStatus.CHƯAKHÁM)
+                            {
+                                <strong style="color: firebrick">@Html.DisplayFor(modelItem => item.Status)</strong>
+                            }
+                            @if (item.Status == SessionStatus.ĐÃĐẶTLỊCH)
+                            {
+                                <strong style="color: #ff8f36">@Html.DisplayFor(modelItem => item.Status)</strong>
+                            }
+                            @if (item.Status == SessionStatus.ĐÃKHÁM)
+                            {
+                                <strong style="color: darkgreen">@Html.DisplayFor(modelItem => item.Status)</strong>
+                            }
+                            </td>
+                        <td>
+                            <a class="btn btn-info" asp-page="./Details" asp-route-id="@item.SessionId">Chi tiết</a>
+                            <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.SessionId">Chỉnh sửa</a>
+                            <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.SessionId">Xoá</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
 
 @section Scripts
 {

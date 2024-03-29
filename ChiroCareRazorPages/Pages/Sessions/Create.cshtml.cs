@@ -26,7 +26,7 @@ namespace ChiroCareRazorPages.Pages.Sessions
         { 
             // ViewData["InvoiceId"] = id;
             // invoiceId = id;
-        ViewData["PatientId"] = new SelectList(_context.Users, "UserId", "FullName");
+        ViewData["PatientId"] = new SelectList(_context.Users.Where(u => u.Role == Role.KHÁCHHÀNG), "UserId", "FullName");
         ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role == Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
             return Page();
         }
@@ -48,7 +48,7 @@ namespace ChiroCareRazorPages.Pages.Sessions
             _context.Sessions.Add(Session);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return Redirect("/Invoices/Details?id=" + Session.InvoiceId);
         }
     }
 }

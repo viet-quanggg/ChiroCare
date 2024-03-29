@@ -1,156 +1,217 @@
 @page
+@using BusinessObject.ChiroEnums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ChiroCareRazorPages.Pages.Invoices.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi Tiết Hoá Đơn";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<style>
+    h1 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+  
+           #sessionTable th {
+               background-color: #f2f2f2;
+               border: 1px solid #dee2e6;
+           }
+       
+           #sessionTable th,
+           #sessionTable td {
+               border: 1px solid #dee2e6;
+               padding: 8px;
+           }
+       
+           #sessionTable tbody tr:hover {
+               background-color: #f5f5f5;
+           }
+           
+           
+           #serviceTable th {
+               background-color: #f2f2f2;
+               border: 1px solid #dee2e6;
+           }
+       
+           #serviceTable tbody tr:hover {
+               background-color: #f5f5f5;
+           }
+</style>
+
 <h1>Chi Tiết Hoá Đơn</h1>
 
-<div>
-    <h4>Thông tin hoá đơn</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-                    Khách hàng
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Invoice.Patient.FullName)
-        </dd>
-        
-        <dt class="col-sm-2">
-            Trạng thái hoá đơn
-        </dt>
-        <dt class="col-sm-10">
-            @Html.DisplayFor(model => model.Invoice.InvoiceStatus)
-        </dt>
-        <dt class="col-sm-2">
-            Thanh toán
-        </dt>
-        <dt class="col-sm-10">
-            @Html.DisplayFor(model => model.Invoice.InvoiceMethod)
-        </dt>
-        <dt class="col-sm-2">
-            Ngày xuất
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Invoice.CreateDate)
-        </dd>
-        <dt class="col-sm-2">
-            Chi tiết
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Invoice.InvoiceDescription)
-        </dd>
-        <dt class="col-sm-2">
-            Số lượng buổi 
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Invoice.Quantity)
-        </dd>
-        <dt class="col-sm-2">
-            Thành tiền
-        </dt>
-        <dt class="col-sm-10">
-            @Html.DisplayFor(model => model.Invoice.InvoiceTotal)
-        </dt>
-        <hr/>
-        <h4>Dịch vụ sử dụng</h4>
-        @if (Model.Invoice.InvoiceServices != null & @Model.Invoice.InvoiceServices.Count > 0)
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin hoá đơn</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Khách hàng:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Invoice.Patient.FullName)</dd>
+            <dt class="col-sm-3">Trạng thái hoá đơn:</dt>
+            <dt class="col-sm-9">
+                 @if (Model.Invoice.InvoiceStatus == InvoiceStatus.ĐÃTHANHTOÁN)
+                                   {
+                                       <strong style="color: darkgreen">
+                                         @Model.Invoice.InvoiceStatus
+                                       </strong>
+                                   }
+                                   @if (Model.Invoice.InvoiceStatus == InvoiceStatus.CHƯATHANHTOÁN)
+                                   {
+                                       <strong style="color: firebrick">
+                                         @Model.Invoice.InvoiceStatus
+                                           </strong>
+                                   }
+                                   @if (Model.Invoice.InvoiceStatus == InvoiceStatus.CÒNTHIẾU)
+                                   {
+                                       <strong style="color: #ff8f36">
+                                         @Model.Invoice.InvoiceStatus
+                                           </strong>
+                                   }
+            </dt>
+            <dt class="col-sm-3">Thanh toán:</dt>
+            <dt class="col-sm-9">@Html.DisplayFor(model => model.Invoice.InvoiceMethod)</dt>
+            <dt class="col-sm-3">Ngày xuất:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Invoice.CreateDate)</dd>
+            <dt class="col-sm-3">Chi tiết:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Invoice.InvoiceDescription)</dd>
+            <dt class="col-sm-3">Chuẩn đoán:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Invoice.InvoiceDiagnose)</dd>
+            <dt class="col-sm-3">Note:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Invoice.InvoiceNote)</dd>
+            <dt class="col-sm-3">Số lượng buổi:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Invoice.Quantity)</dd>
+            <dt class="col-sm-3">Thành tiền:</dt>
+            <dt class="col-sm-9">@Html.DisplayFor(model => model.Invoice.InvoiceTotal)</dt>
+        </dl>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Dịch vụ sử dụng</h4>
+        @if (Model.Invoice.InvoiceServices != null && Model.Invoice.InvoiceServices.Count > 0)
         {
-            <table>
-                <thead>
-                <tr>
-                    <th>Tên dịch vụ</th>
-                    <th>Giá tiền</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var item in @Model.Invoice.InvoiceServices)
-                {
-                    <tr>
-        
-                        <td>@item.Service.ServiceName</td>
-                        @{
-                            // Assuming @item.InvoiceTotal is a decimal value
-                            decimal invoiceTotal = @item.Service.ServicePrice;
-        
-                            // Creating a CultureInfo object for Vietnamese culture
-                            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
-        
-                            // Formatting the invoiceTotal to VND
-                            string formattedTotal = invoiceTotal.ToString("C", culture);
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tên dịch vụ</th>
+                            <th>Giá tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Invoice.InvoiceServices)
+                        {
+                            <tr>
+                                <td>@item.Service.ServiceName</td>
+                                @{
+                                    decimal invoiceTotal = item.Service.ServicePrice;
+                                    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
+                                    string formattedTotal = invoiceTotal.ToString("C", culture);
+                                }
+                                <td>@formattedTotal</td>
+                            </tr>
                         }
-        
-                        <td>@formattedTotal</td>
-        
-                    </tr>
-                }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         }
         else
         {
-            <h3>Hoá đơn không có dịch vụ!</h3>
+            <div class="alert alert-warning" role="alert">
+                Hoá đơn không có dịch vụ!
+            </div>
         }
-        <hr/>
-        <h4>Theo dõi liệu trình</h4>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Theo dõi liệu trình</h4>
         @if (Model.Invoice.ListSessions.Count < Model.Invoice.Quantity)
         {
-            <a asp-page="/Sessions/Create" asp-route-id="@Model.Invoice.InvoiceId">Cập nhật buổi khám</a>
-        }@if (Model.Invoice.ListSessions.Count == Model.Invoice.Quantity)
-         {
-             <h3>Đã khám đủ số buổi!</h3>
-         }
-        @if (Model.Invoice.ListSessions != null || Model.Invoice.ListSessions.Count > 0)
+            <a class="btn btn-primary" asp-page="/Sessions/Create" asp-route-id="@Model.Invoice.InvoiceId">Cập nhật buổi khám</a> 
+        }
+        @if (Model.Invoice.ListSessions.Count == Model.Invoice.Quantity)
         {
-            <table id="sessionTable">
-                <thead>
-                <tr>
-                    <th>Ngày khám</th>
-                    <th>Liệu trình</th>
-                    <th>Chi tiết</th>
-                    <th>Người điều trị</th>
-                    <th>Trạng thái</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var item in @Model.Invoice.ListSessions)
-                {
+            <h3 style="color: darkgreen">Đã khám đủ số buổi!</h3>
+        }
+        @if (Model.Invoice.ListSessions != null && Model.Invoice.ListSessions.Count > 0)
+        {
+            <div class="table-responsive">
+                <table  id="sessionTable">
+                    <thead>
                     <tr>
-
-                        <td>@item.SessionDate</td>
-                        <td>@item.SessionTreatment</td>
-                        <td>@item.SessionInfo</td>
-                        <td>@item.Therapist.FullName</td>
-                        <th>@item.Status</th>
-
+                        <th>Ngày khám</th>
+                        <th>Liệu trình</th>
+                        <th>Chi tiết</th>
+                        <th>Người điều trị</th>
+                        <th>Trạng thái</th>
                     </tr>
-                }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Invoice.ListSessions)
+                    {
+                        <tr>
+                            <td><a class="btn btn-link" asp-page="/Sessions/Details" asp-route-id="@item.SessionId">@Html.DisplayFor(modelItem => item.SessionDate)</a></td>
+                            <td>@item.SessionTreatment</td>
+                            <td>@item.SessionInfo</td>
+                            <td>@item.Therapist.FullName</td>
+                            <td>
+                                @if (item.Status == SessionStatus.CHƯAKHÁM)
+                                {
+                                    <strong style="color: firebrick">@Html.DisplayFor(modelItem => item.Status)</strong>
+                                }
+                                @if (item.Status == SessionStatus.ĐÃĐẶTLỊCH)
+                                {
+                                    <strong style="color: #ff8f36">@Html.DisplayFor(modelItem => item.Status)</strong>
+                                }
+                                @if (item.Status == SessionStatus.ĐÃKHÁM)
+                                {
+                                    <strong style="color: darkgreen">@Html.DisplayFor(modelItem => item.Status)</strong>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
         }
         else
         {
-            <h3>Chưa có buổi khám nào !</h3>
+            <div class="alert alert-warning" role="alert">
+                Chưa có buổi khám nào!
+            </div>
         }
-        
-        
-    </dl>
+    </div>
 </div>
-<div>
-    <a asp-page="./Index">Trở về danh sách</a>
+
+
+
+<div class="mt-3">
+    <a class="btn btn-secondary" asp-page="./Index">Trở về danh sách</a>
 </div>
 
 @section Scripts
 {
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#sessionTable').DataTable({
                 responsive: true
             });
+            
+           
+        
         });
+        
+       
     </script>
 }
-

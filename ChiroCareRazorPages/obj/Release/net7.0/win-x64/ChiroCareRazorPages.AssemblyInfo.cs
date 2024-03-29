@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChiroCareRazorPages")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf1767d9467d821aafc52876a117824cb74f8d75")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f9e64853cb0547becd89718db5185afa1a33b00")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChiroCareRazorPages")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChiroCareRazorPages")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

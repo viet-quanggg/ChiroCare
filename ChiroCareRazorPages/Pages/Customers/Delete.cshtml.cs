@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Data;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace ChiroCareRazorPages.Pages.Customers
 {
@@ -51,9 +52,17 @@ namespace ChiroCareRazorPages.Pages.Customers
 
             if (user != null)
             {
-                User = user;
-                _context.Users.Remove(User);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    User = user;
+                    _context.Users.Remove(User);
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = "An error occurred while deleting the user. Please try again later or contact support.";
+                }
+              
             }
 
             return RedirectToPage("./Index");

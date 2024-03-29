@@ -6,25 +6,89 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Tạo Phân Loại Dịch Vụ</h1>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
 
-<h4>Phân Loại Dịch Vụ</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    .container-form {
+        max-width: 500px;
+        margin: auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    h4 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+
+<div class="container-form">
+        <h1>Tạo Phân Loại Dịch Vụ</h1>
+        <hr/>
+        <h4>Phân Loại Dịch Vụ</h4>
+        
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ServiceCategory.CategoryName" class="control-label">Tên Phân Loại</label>
-                <input asp-for="ServiceCategory.CategoryName" class="form-control" />
+                <input asp-for="ServiceCategory.CategoryName" class="form-control"/>
                 <span asp-validation-for="ServiceCategory.CategoryName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Tạo" class="btn btn-primary" />
+                <input type="submit" value="Tạo" class="btn btn-primary"/>
             </div>
         </form>
     </div>
-</div>
 
 <div>
     <a asp-page="Index">Trở về danh sách</a>

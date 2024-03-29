@@ -7,5 +7,5 @@ public class ServiceCategory
 
     public string CategoryName { get; set; }
 
-    public ICollection<Service>? Services { get; set; } = new List<Service>();
+    public ICollection<Service> Services { get; set; } = new List<Service>();
 }

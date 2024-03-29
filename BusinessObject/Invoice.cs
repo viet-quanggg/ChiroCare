@@ -21,8 +21,10 @@ namespace BusinessObject
         public string InvoiceDescription { get; set; }
 
         [Required(ErrorMessage = "Số lượng buổi không được để trống !")]
+        [Range(1, 100, ErrorMessage = "Số buổi không được để trống và phải lớn hơn 0 nhỏ hơn 100 !")]
         public int Quantity { get; set; }
 
+        public string? InvoiceDiagnose { get; set; }
         public string? InvoiceNote { get; set; }
 
         [DataType(DataType.Currency)]
@@ -34,6 +36,6 @@ namespace BusinessObject
         public ICollection<InvoiceService> InvoiceServices { get; set; } = new List<InvoiceService>();
 
         [Required(ErrorMessage = "List of sessions is required")]
-        public List<Session> ListSessions { get; set; } = new List<Session>();
+        public ICollection<Session> ListSessions { get; set; } = new List<Session>();
     }
 }

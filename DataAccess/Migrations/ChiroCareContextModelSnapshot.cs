@@ -36,6 +36,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<string>("InvoiceDiagnose")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("InvoiceMethod")
                         .HasColumnType("int");
 
@@ -91,9 +94,6 @@ namespace DataAccess.Migrations
                     b.Property<Guid>("InvoiceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("InvoiceId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("PatientId")
                         .IsRequired()
                         .HasColumnType("uniqueidentifier");
@@ -105,7 +105,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("SessionInfo")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)")
                         .HasColumnName("SessionInfo");
@@ -124,8 +123,6 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.HasIndex("InvoiceId1");
-
                     b.HasIndex("PatientId");
 
                     b.HasIndex("TherapistId");
@@ -139,10 +136,7 @@ namespace DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ServiceCategoryCategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ServiceDescription")
@@ -155,14 +149,9 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("ServicePrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("SessionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("ServiceId");
 
-                    b.HasIndex("ServiceCategoryCategoryId");
-
-                    b.HasIndex("SessionId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Services");
                 });
@@ -189,6 +178,9 @@ namespace DataAccess.Migrations
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Dob")
                         .HasColumnType("date");
@@ -282,15 +274,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("BusinessObject.Session", b =>
                 {
-                    b.HasOne("BusinessObject.Invoice", null)
+                    b.HasOne("BusinessObject.Invoice", "Invoice")
                         .WithMany("ListSessions")
                         .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("BusinessObject.Invoice", "Invoice")
-                        .WithMany()
-                        .HasForeignKey("InvoiceId1");
 
                     b.HasOne("User", "Patient")
                         .WithMany("UserSessions")
@@ -315,11 +303,9 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("ServiceCategory", "ServiceCategory")
                         .WithMany("Services")
-                        .HasForeignKey("ServiceCategoryCategoryId");
-
-                    b.HasOne("BusinessObject.Session", null)
-                        .WithMany("Services")
-                        .HasForeignKey("SessionId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("ServiceCategory");
                 });
@@ -329,11 +315,6 @@ namespace DataAccess.Migrations
                     b.Navigation("InvoiceServices");
 
                     b.Navigation("ListSessions");
-                });
-
-            modelBuilder.Entity("BusinessObject.Session", b =>
-                {
-                    b.Navigation("Services");
                 });
 
             modelBuilder.Entity("Service", b =>

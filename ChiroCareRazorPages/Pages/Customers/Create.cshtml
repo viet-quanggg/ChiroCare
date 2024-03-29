@@ -2,76 +2,153 @@
 @model ChiroCareRazorPages.Pages.Customers.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Tạo Hồ Sơ Bệnh Án";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Tạo Hồ Sơ Bệnh Án</h1>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
 
-<h4>Thông tin cá nhân</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="User.PhoneNumber" class="control-label">Số Điện Thoại</label>
-                <input required="" asp-for="User.PhoneNumber" class="form-control" />
-                <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.FullName" class="control-label">Họ Và Tên</label>
-                <input required="" asp-for="User.FullName" class="form-control" />
-                <span asp-validation-for="User.FullName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.Dob" class="control-label">Ngày Sinh</label>
-                <input required="" asp-for="User.Dob" class="form-control" />
-                <span asp-validation-for="User.Dob" class="text-danger"></span>
-            </div>
-           <div class="form-group">
-               <label asp-for="User.Gender" class="control-label">Giới tính</label>
-               <select asp-for="User.Gender" class="form-control">
-                   <option value="1">Nam</option>
-                   <option value="0">Nữ</option>
-                   <option value="2">Khác</option>
-               </select>
-               <span asp-validation-for="User.Gender" class="text-danger"></span>
-           </div>
-            <div class="form-group">
-                <label asp-for="User.Job" class="control-label">Nghề Nghiệp</label>
-                <input  asp-for="User.Job" class="form-control" />
-                <span asp-validation-for="User.Job" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.History" class="control-label">Tiền sử bệnh</label>
-                <input asp-for="User.History" class="form-control" />
-                <span asp-validation-for="User.History" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.EmailAddress" class="control-label">Email</label>
-                <input asp-for="User.EmailAddress" class="form-control" />
-                <span asp-validation-for="User.EmailAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.Role" class="control-label">Vai trò</label>
-                <select asp-for="User.Role" class="form-control">
-                    <option value="1">NGƯỜI KHÁM</option>
-                    <option value="0">KHÁCH HÀNG</option>
-                </select>
-                
-                <span asp-validation-for="User.EmailAddress" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Tạo" class="btn btn-primary" />
-            </div>
-        </form>
+    .container-form {
+        max-width: 500px;
+        margin: auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    h4 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+
+<div class="container-form">
+    <h1>Tạo Hồ Sơ Bệnh Án</h1>
+
+    <h4>Thông tin cá nhân</h4>
+
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="User.PhoneNumber">Số Điện Thoại</label>
+            <input required asp-for="User.PhoneNumber" class="form-control" />
+            <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="User.FullName">Họ Và Tên</label>
+            <input required asp-for="User.FullName" class="form-control" />
+            <span asp-validation-for="User.FullName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="User.Dob">Ngày Sinh</label>
+            <input required type="date" asp-for="User.Dob" class="form-control" />
+            <span asp-validation-for="User.Dob" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="User.Gender">Giới tính</label>
+            <select asp-for="User.Gender" class="form-control">
+                <option value="1">Nam</option>
+                <option value="0">Nữ</option>
+                <option value="2">Khác</option>
+            </select>
+            <span asp-validation-for="User.Gender" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="User.Job">Nghề Nghiệp</label>
+            <input asp-for="User.Job" class="form-control" />
+            <span asp-validation-for="User.Job" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+                    <label asp-for="User.Address">Địa chỉ</label>
+                    <input asp-for="User.Address" class="form-control" />
+                    <span asp-validation-for="User.Address" class="text-danger"></span>
+                </div>
+
+        <div class="form-group">
+            <label asp-for="User.History">Tiền sử bệnh</label>
+            <input asp-for="User.History" class="form-control" />
+            <span asp-validation-for="User.History" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="User.EmailAddress">Email</label>
+            <input asp-for="User.EmailAddress" class="form-control" />
+            <span asp-validation-for="User.EmailAddress" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="User.Role">Vai trò</label>
+            <select asp-for="User.Role" class="form-control">
+                <option value="1">NGƯỜI ĐIỀU TRỊ</option>
+                <option value="0">KHÁCH HÀNG</option>
+            </select>
+            <span asp-validation-for="User.EmailAddress" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Tạo" class="btn btn-primary" />
+        </div>
+    </form>
+
+    <div class="text-center">
+        <a asp-page="Index" class="btn btn-secondary">Quay về danh sách</a>
     </div>
-</div>
-
-<div>
-    <a asp-page="Index">Quay về danh sách</a>
 </div>
 
 @section Scripts {

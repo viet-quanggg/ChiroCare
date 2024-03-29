@@ -1,10 +1,85 @@
-﻿@page
+﻿@page "/Home"
+@using BusinessObject.ChiroEnums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Trang chủ";
 }
+<style>
+    .card{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    }
+</style>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Chào mừng <strong>Chiro Care</strong> !</h1>
+    
 </div>
+<h2>Danh sách buổi khám ngày: <strong style="color: #4169E1">@DateTime.Today.ToShortDateString()</strong> </h2>
+<div>
+    <a class="btn btn-primary" asp-page="/Invoices/Create" >Tạo hoá đơn mới</a>
+    <a class="btn btn-primary" asp-page="/Customers/Create" >Tạo hồ sơ bệnh nhân</a>
+</div>
+<div>
+    <div class="card">
+        <div class="table-responsive">
+    <table class="table" id="sessionTable">
+                    <thead>
+                    <tr>
+                        <th>Giờ hẹn khám</th>
+                        <th>Liệu trình</th>
+                        <th>SĐT Khách hàng</th>
+                        <th>Khách hàng</th>
+                        <th>Trạng thái</th>
+                        <th>Chức năng</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Sessions)
+                    {
+                        <tr>
+                            <td style="color: #4169E1"><strong>@Html.DisplayFor(modelItem => item.SessionAppointment.Value.TimeOfDay)</strong></td>
+                            <td>@Html.DisplayFor(modelItem => item.SessionTreatment)</td>
+                            <td><strong>@Html.DisplayFor(modelItem => item.Patient.PhoneNumber)</strong></td>
+                            <td>
+                                <a class="btn btn-link" asp-page="/Invoices/Details" asp-route-id="@item.Invoice.InvoiceId">@Html.DisplayFor(modelItem => item.Patient.FullName)</a>
+                            </td>
+                            <td>
+                                @if (item.Status == SessionStatus.CHƯAKHÁM)
+                                {
+                                    <strong style="color: firebrick">@Html.DisplayFor(modelItem => item.Status)</strong>
+                                }
+                                @if (item.Status == SessionStatus.ĐÃĐẶTLỊCH)
+                                {
+                                    <strong style="color: #ff8f36">@Html.DisplayFor(modelItem => item.Status)</strong>
+                                }
+                                @if (item.Status == SessionStatus.ĐÃKHÁM)
+                                {
+                                    <strong style="color: darkgreen">@Html.DisplayFor(modelItem => item.Status)</strong>
+                                }
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" asp-page="/Sessions/Edit" asp-route-id="@item.SessionId">Cập nhật</a>
+                                <a class="btn btn-danger" asp-page="/Sessions/Delete" asp-route-id="@item.SessionId">Xoá</a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('#sessionTable').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+}

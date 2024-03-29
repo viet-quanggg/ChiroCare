@@ -1,4 +1,5 @@
 @page
+@using BusinessObject.ChiroEnums
 @model ChiroCareRazorPages.Pages.Invoices.IndexModel
 
 @{
@@ -6,95 +7,122 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<style>
+               .card {
+                   margin-bottom: 20px;
+               }
+    h1 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    #invoiceTable th {
+        background-color: #f2f2f2;
+        border: 1px solid #dee2e6;
+    }
+
+    #invoiceTable th,
+    #invoiceTable td {
+        border: 1px solid #dee2e6;
+        padding: 8px;
+    }
+
+    #invoiceTable tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+
 <h1>Danh sách hoá đơn</h1>
 
 <p>
-    <a asp-page="Create">Tạo hoá đơn mới</a>
+    <a class="btn btn-primary" asp-page="Create">Tạo hoá đơn mới</a>
 </p>
-<table class="table" id="invoiceTable">
-    <thead>
-        <tr>
-            <th>
-                Tên khách hàng
-                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceStatus) *@
-            </th>
-            <th>
-               Thanh toán
-                @* @Html.DisplayNameFor(model => model.Invoice[0].CreateDate) *@
-            </th>
-            <th>
-                Ngày tạo
-                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceDiagnose) *@
-            </th>
-            <th>
-                Chi tiết
-                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceNote) *@
-            </th>
-            <th>
-                Note
-                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceNote) *@
-            </th>
-            <th>
-               Số lượng buổi khám
-                @* @Html.DisplayNameFor(model => model.Invoice[0].InvoiceTotal) *@
-            </th>
-            <th>
-                Thành tiền
-                @* @Html.DisplayNameFor(model => model.Invoice[0].Patient) *@
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Invoice) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Patient.FullName)
-            </td>
-            <th>
-                @Html.DisplayFor(modelItem => item.InvoiceStatus)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InvoiceDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InvoiceNote)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            
-           @{
-               // Assuming @item.InvoiceTotal is a decimal value
-               decimal invoiceTotal = @item.InvoiceTotal;
-           
-               // Creating a CultureInfo object for Vietnamese culture
-               System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
-           
-               // Formatting the invoiceTotal to VND
-               string formattedTotal = invoiceTotal.ToString("C", culture);
-           }
-           
-           <td>@formattedTotal</td>
-            <td>
-                <a asp-page="./Details" asp-route-id="@item.InvoiceId">Chi tiết</a>
-                @if (item.ListSessions.Count == item.Quantity)
+<div class="card">
+    <div class="table-responsive">
+    <table class="table" id="invoiceTable">
+                <thead>
+                <tr>
+                    <th>Tên khách hàng</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày tạo</th>
+                    <th>Chi tiết</th>
+                    <th>Note</th>
+                    <th>Số lượng buổi khám</th>
+                    <th>Thành tiền</th>
+                    <th>Chức năng</th>
+                    <th>Cập nhật trạng thái</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Invoice)
                 {
-                    <a> | Đã khám đủ số buổi!</a>
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Patient.FullName)</td>
+                        <td >
+                            @if (item.InvoiceStatus == InvoiceStatus.ĐÃTHANHTOÁN)
+                            {
+                                <strong style="color: darkgreen">
+                                    @Html.DisplayFor(modelItem => item.InvoiceStatus)
+                                </strong>
+                            }
+                            @if (item.InvoiceStatus == InvoiceStatus.CHƯATHANHTOÁN)
+                            {
+                                <strong style="color: firebrick">
+                                    @Html.DisplayFor(modelItem => item.InvoiceStatus)
+                                </strong>
+                            }
+                            @if (item.InvoiceStatus == InvoiceStatus.CÒNTHIẾU)
+                            {
+                                <strong style="color: #ff8f36">
+                                    @Html.DisplayFor(modelItem => item.InvoiceStatus)
+                                </strong>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.InvoiceDescription)</td>
+                        <td>@Html.DisplayFor(modelItem => item.InvoiceNote)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
+        
+                        @{
+                            // Assuming @item.InvoiceTotal is a decimal value
+                            decimal invoiceTotal = @item.InvoiceTotal;
+        
+                            // Creating a CultureInfo object for Vietnamese culture
+                            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
+        
+                            // Formatting the invoiceTotal to VND
+                            string formattedTotal = invoiceTotal.ToString("C", culture);
+                        }
+        
+                        <td><strong>@formattedTotal</strong> </td>
+                        <td>
+                            <a class="btn btn-info" asp-page="./Details" asp-route-id="@item.InvoiceId">Chi tiết</a>
+                            @if (item.ListSessions.Count == item.Quantity)
+                            {
+                                <strong style="color: darkgreen"> | Đã khám đủ số buổi!</strong>
+                            }
+                            @if (item.ListSessions.Count < item.Quantity)
+                            {
+                                <a class="btn btn-warning" asp-page="/Sessions/Create" asp-route-id="@item.InvoiceId">Cập nhật buổi khám</a>
+                            }
+                            @if (item.InvoiceStatus is InvoiceStatus.CÒNTHIẾU or InvoiceStatus.CHƯATHANHTOÁN)
+                            {
+        
+                            }
+        
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-page="/Invoices/Edit" asp-route-id="@item.InvoiceId">Cập nhật trạng thái</a>
+                        </td>
+                    </tr>
                 }
-                @if (item.ListSessions.Count < item.Quantity)
-                {
-                    <a asp-page="/Sessions/Create" asp-route-id="@item.InvoiceId"> | Cập nhật buổi khám</a>
+                </tbody>
+            </table>
+    </div>
+</div>
 
-                }
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
 @section Scripts
 {
     <script>
@@ -102,6 +130,8 @@
             $('#invoiceTable').DataTable({
                 responsive: true
             });
+            
+            
         });
     </script>
 }

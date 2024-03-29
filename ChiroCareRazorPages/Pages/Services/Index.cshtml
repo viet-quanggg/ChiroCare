@@ -6,65 +6,80 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<style>
+    .card{
+          margin-bottom: 20px; 
+    }
+    
+    h1 {
+           color: #333;
+           font-size: 24px;
+           margin-bottom: 20px;
+       }
+   
+       #serviceId th {
+           background-color: #f2f2f2;
+           border: 1px solid #dee2e6;
+       }
+   
+       #serviceId th,
+       #serviceId td {
+           border: 1px solid #dee2e6;
+           padding: 8px;
+       }
+   
+       #serviceId tbody tr:hover {
+           background-color: #f5f5f5;
+       }
+
+</style>
+
 <h1>Quản Lý Dịch Vụ</h1>
 
-<p>
-    <a asp-page="Create">Tạo Dịch Vụ Mới</a>
-</p>
-<p>
-    <a asp-page="/ServiceCategories/Index">Quản Lý Phân Loại Dịch Vụ</a>
-</p>
+<div class="mb-3">
+    <a class="btn btn-primary" asp-page="Create">Tạo Dịch Vụ Mới</a>
+    <a class="btn btn-secondary" asp-page="/ServiceCategories/Index">Quản Lý Phân Loại Dịch Vụ</a>
+</div>
+<div class="card">
+    <div class="table-responsive">
 <table class="table" id="serviceId">
-    <thead>
-        <tr>
-            <th>
-                Tên dịch vụ
-            </th>
-            <th>
-                Đơn giá
-            </th>
-            <th>
-                Mô tả
-            </th>
-            <th>
-                Phân loại
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Service) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceName)
-            </td>
-            @{
-                // Assuming @item.InvoiceTotal is a decimal value
-                decimal invoiceTotal = @item.ServicePrice;
-            
-                // Creating a CultureInfo object for Vietnamese culture
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
-            
-                // Formatting the invoiceTotal to VND
-                string formattedTotal = invoiceTotal.ToString("C", culture);
-            }
-            
-            <td>@formattedTotal</td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceCategory.CategoryName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ServiceId">Chỉnh Sửa</a> |
-                <a asp-page="./Details" asp-route-id="@item.ServiceId">Chi Tiết</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ServiceId">Xoá</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            <thead>
+                <tr>
+                    <th>Tên dịch vụ</th>
+                    <th>Đơn giá</th>
+                    <th>Mô tả</th>
+                    <th>Phân loại</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Service)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.ServiceName)</td>
+                        @{
+                            // Assuming @item.InvoiceTotal is a decimal value
+                            decimal invoiceTotal = item.ServicePrice;
+                        
+                            // Formatting the invoiceTotal to VND
+                            string formattedTotal = invoiceTotal.ToString("#,##0") + " VND";
+                        }
+                        <td>@formattedTotal</td>
+                        <td>@Html.DisplayFor(modelItem => item.ServiceDescription)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ServiceCategory.CategoryName)</td>
+                        <td>
+                            <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.ServiceId">Chỉnh Sửa</a>
+                            <a class="btn btn-info" asp-page="./Details" asp-route-id="@item.ServiceId">Chi Tiết</a>
+                            <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ServiceId">Xoá</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+
 @section Scripts
 {
     <script>

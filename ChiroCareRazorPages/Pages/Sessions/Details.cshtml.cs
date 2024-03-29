@@ -28,7 +28,11 @@ namespace ChiroCareRazorPages.Pages.Sessions
                 return NotFound();
             }
 
-            var session = await _context.Sessions.FirstOrDefaultAsync(m => m.SessionId == id);
+            var session = await _context.Sessions
+                .Include(s => s.Patient)
+                .Include(s => s.Therapist)
+                .Include(s => s.Invoice)
+                .FirstOrDefaultAsync(m => m.SessionId == id);
             if (session == null)
             {
                 return NotFound();

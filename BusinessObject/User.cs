@@ -25,6 +25,7 @@ public class User
     [Required(ErrorMessage = "Giới tính không thể để trống!")]
     public int Gender { get; set; }
     public string? Job { get; set; }
+    public string? Address { get; set; }
     public string? History { get; set; }
     [Required]
     public Role Role { get; set; }

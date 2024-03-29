@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using BusinessObject
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -17,30 +18,45 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-page="/Index">ChiroCare</a>
+            @if (Context.Session.GetInt32("Role") == 0)
+            {            
+                <a class="navbar-brand" asp-area="" asp-page="/Index">ChiroCare</a>
+            }else if (Context.Session.GetInt32("Role") == null)
+            {
+                <a class="navbar-brand" asp-area="" asp-page="/Login">ChiroCare</a>
+
+            }
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Index">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Quản lý bệnh nhân</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Services/Index">Dịch vụ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Invoices/Index">Hoá Đơn</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Sessions/Index">Buổi Khám</a>
-                    </li>
-                    
-                    
+                    @if (Context.Session.GetInt32("Role") == 0)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Quản lý bệnh nhân</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Services/Index">Dịch vụ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Invoices/Index">Hoá Đơn</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Sessions/Index">Buổi Khám</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="logout-link" asp-area="" asp-page="/Login">Đăng xuất</a>
+                        </li>
+                    }
+                    else if (Context.Session.GetInt32("Role") == null)
+                    {
+
+                    }
                 </ul>
             </div>
         </div>
@@ -60,9 +76,18 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/datatables/datatables.min.js"></script>
+<script src="~/lib/datatables/datatables.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script >
+       document.getElementById("logout-link").addEventListener("click", function(event) {
+             event.preventDefault(); // Prevent the default behavior of the link
+               
+                window.location.href = '/';
+         });
+            
+</script>

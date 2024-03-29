@@ -1,64 +1,106 @@
 @page
 @model ChiroCareRazorPages.Pages.Customers.IndexModel
 @using System.Data;
-    <script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+@using BusinessObject.ChiroEnums
+<script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<style>
+    h1 {
+           color: #333;
+           font-size: 24px;
+           margin-bottom: 20px;
+       }
+       
+               .card {
+                   margin-bottom: 20px;
+               }
+              
+   
+       #UserTable th {
+           background-color: #f2f2f2;
+           border: 1px solid #dee2e6;
+       }
+   
+       #UserTable th,
+       #UserTable td {
+           border: 1px solid #dee2e6;
+           padding: 8px;
+       }
+   
+       #UserTable tbody tr:hover {
+           background-color: #f5f5f5;
+       }
+
+</style>
+
 <h1>Danh Sách Bệnh Nhân</h1>
 
 <p>
-    <a asp-page="Create">Tạo Hồ Sơ Mới</a>
+    <a class="btn btn-primary" asp-page="Create">Tạo Hồ Sơ Mới</a>
 </p>
 
-@if (Model.User != null && Model.User.Count > 0)
-{
-    <div class="container">
-        <table class="table" id="UserTable">
-            <thead>
-                <tr>
-                    <th>Số điện thoại</th>
-                    <th>Họ và Tên</th>
-                    <th>Ngày sinh</th>
-                    <th>Giới tính</th>
-                    <th>Vai trò</th>
-                    <th>Chức năng</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.User)
-                {
+<div class="card">
+    @if (Model.User != null && Model.User.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table" id="UserTable">
+                <thead>
                     <tr>
-                        <td>@item.PhoneNumber</td>
-                        <td>@item.FullName</td>
-                        <td>@item.Dob</td>
-                        <td>@if (item.Gender == 1)
-                            {
-                                <text>Nam</text>
-                            }
-                            else
-                            {
-                                <text>Nữ</text>
-                            }</td>
-                        <th>@item.Role</th>
-                        <td>
-                            <a asp-page="./Edit" asp-route-id="@item.UserId">Chỉnh sửa</a> |
-                            <a asp-page="./Details" asp-route-id="@item.UserId">Chi tiết</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.UserId">Xoá</a>
-                        </td>
+                        <th>Số điện thoại</th>
+                        <th>Họ và Tên</th>
+                        <th>Ngày sinh</th>
+                        <th>Giới tính</th>
+                        <th>Vai trò</th>
+                        <th>Chức năng</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
-else
-{
-    <h3>Không có người dùng nào để hiển thị!</h3>
-}
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.User)
+                    {
+                        <tr>
+                            <td><strong>@item.PhoneNumber</strong></td>
+                            <td>@item.FullName</td>
+                            <td>@item.Dob.Date</td>
+                            <td>@if (item.Gender == 1)
+                                {
+                                    <text>Nam</text>
+                                }
+                                else
+                                {
+                                    <text>Nữ</text>
+                                }</td>
+                            <td>
+                                @if (item.Role == Role.NGƯỜIĐIỀUTRỊ)
+                                {
+                                    <strong style="color: firebrick" >@item.Role</strong>
+                                }
+                                @if (item.Role == Role.KHÁCHHÀNG)
+                                {
+                                    <strong style="color: darkgreen">@item.Role</strong>
+                                }
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@item.UserId">Chỉnh sửa</a>
+                                <a class="btn btn-info" asp-page="./Details" asp-route-id="@item.UserId">Chi tiết</a>
+                                <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.UserId">Xoá</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h3>Không có người dùng nào để hiển thị!</h3>
+    }
+</div>
+
 
 @section Scripts
 {

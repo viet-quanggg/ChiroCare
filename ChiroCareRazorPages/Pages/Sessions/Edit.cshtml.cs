@@ -23,10 +23,9 @@ namespace ChiroCareRazorPages.Pages.Sessions
 
         [BindProperty]
         public Session Session { get; set; } = default!;
-        public Guid invoiceId { get; set; }
+
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            HttpContext.Session.Clear();
             if (id == null || _context.Sessions == null)
             {
                 return NotFound();
@@ -34,17 +33,15 @@ namespace ChiroCareRazorPages.Pages.Sessions
 
             var session =  await _context.Sessions
                 .Include(s => s.Invoice)
-                .ThenInclude(s => s.Patient)
-                .Include(s => s.Patient)
                 .FirstOrDefaultAsync(m => m.SessionId == id);
             if (session == null)
             {
                 return NotFound();
             }
             Session = session;
-            invoiceId = session.InvoiceId;
+           ViewData["InvoiceId"] = new SelectList(_context.Invoices.Where(i => i.InvoiceId == Session.InvoiceId), "InvoiceId", "InvoiceId");
            ViewData["PatientId"] = new SelectList(_context.Users.Where(u => u.UserId == Session.PatientId), "UserId", "FullName");
-           ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role == Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
+           ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role==Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
             return Page();
         }
 
@@ -52,11 +49,11 @@ namespace ChiroCareRazorPages.Pages.Sessions
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            
-            Session.SessionDate = DateTime.Now;
-            Session.InvoiceId = invoiceId;
-            _context.Attach(Session).State = EntityState.Modified;
 
+            Session.SessionDate = DateTime.Now;
+            _context.Attach(Session).State = EntityState.Modified;
+            
+            
             try
             {
                 await _context.SaveChangesAsync();
@@ -73,7 +70,7 @@ namespace ChiroCareRazorPages.Pages.Sessions
                 }
             }
 
-            return RedirectToPage("./Index");
+            return Redirect("/Invoices/Details?id=" + Session.InvoiceId);
         }
 
         private bool SessionExists(Guid id)

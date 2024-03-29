@@ -19,6 +19,8 @@ namespace ChiroCareRazorPages.Pages.Invoices
             _context = context;
         }
 
+        [BindProperty]
+        public Invoice Invoices { get; set; } = default!;
         public IList<Invoice> Invoice { get;set; } = default!;
 
         public async Task OnGetAsync()

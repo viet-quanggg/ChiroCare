@@ -16,8 +16,8 @@ public class Service
     public decimal ServicePrice { get; set; }
 
     public string? ServiceDescription { get; set; }
-    public int? CategoryId { get; set; }
-    public ServiceCategory? ServiceCategory { get; set; }
+    public int CategoryId { get; set; }
+    public ServiceCategory ServiceCategory { get; set; }
 
     // Navigation property for InvoiceService entities representing the many-to-many relationship with Invoice
     public ICollection<InvoiceService> InvoiceServices { get; set; } = new List<InvoiceService>();

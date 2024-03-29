@@ -26,15 +26,34 @@ namespace ChiroCareRazorPages.Pages.Invoices
             _invoiceRepository = invoiceRepository;
             _serviceRepository = serviceRepository;
         }
-        
+        [BindProperty]
+        public String phone { get; set; }
         public List<Service> Services { get; set; }
         [BindProperty]
         public List<Guid> serviceIds { get; set; }
-        public async void OnGet()
+        public async Task OnGet(string id)
         {
-            ViewData["Services"] = new SelectList(_context.Services, "ServiceId", "ServiceName");
+            if (id == null)
+            {
+                var services = await _context.Services.ToListAsync();
+                ViewData["Services"] = new SelectList(services.Select(s => new {
+                    ServiceId = s.ServiceId,
+                    DisplayName = $"{s.ServiceName} - {s.ServicePrice.ToString("N0")} VND"
+                }), "ServiceId", "DisplayName");
+            }
+            else
+            {
+                phone = id;
+                await OnPostIndex(phone);
+                var services = await _context.Services.ToListAsync();
+                ViewData["Services"] = new SelectList(services.Select(s => new {
+                    ServiceId = s.ServiceId,
+                    DisplayName = $"{s.ServiceName} - {s.ServicePrice.ToString("N0")} VND"
+                }), "ServiceId", "DisplayName");
+            }
+          
         }
-        
+
 
         [BindProperty]
         public Invoice Invoice { get; set; } = default!;
@@ -70,9 +89,10 @@ namespace ChiroCareRazorPages.Pages.Invoices
                 return RedirectToPage("./Index");
 
             }
-            else if (invoiceUser == null)
+             if (invoiceUser == null)
                 {
                     User.Role = 0;
+                    User.PhoneNumber = phoneNum;
                     _context.Users.Add(User);
                     await _context.SaveChangesAsync();
                     User createdUser = await _userRepository.GetUserDetailByPhoneNumber(phoneNum);
@@ -115,7 +135,11 @@ namespace ChiroCareRazorPages.Pages.Invoices
                     // If User is null, populate the input field with the provided phone number
                     PhoneNumber = phone;
                 }
-                OnGet();
+                var services = await _context.Services.ToListAsync();
+                ViewData["Services"] = new SelectList(services.Select(s => new {
+                    ServiceId = s.ServiceId,
+                    DisplayName = $"{s.ServiceName} - {s.ServicePrice.ToString("N0")} VND"
+                }), "ServiceId", "DisplayName");
                 return Page();
             
         }
