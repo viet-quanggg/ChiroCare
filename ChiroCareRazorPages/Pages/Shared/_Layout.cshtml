@@ -41,6 +41,24 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Quản lý bệnh nhân</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Invoices/Index">Hoá Đơn</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Sessions/Index">Buổi Khám</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" id="logout-link" asp-area="" asp-page="/Login">Đăng xuất</a>
+                        </li>
+                    }
+                    else if (Context.Session.GetInt32("Role") == 1)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Quản lý bệnh nhân</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Services/Index">Dịch vụ</a>
                         </li>
                         <li class="nav-item">
@@ -55,7 +73,7 @@
                     }
                     else if (Context.Session.GetInt32("Role") == null)
                     {
-
+                        
                     }
                 </ul>
             </div>

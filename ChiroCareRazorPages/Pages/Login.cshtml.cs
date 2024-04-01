@@ -36,10 +36,19 @@ namespace ChiroCareRazorPages.Pages
             HttpContext.Session.Clear();
             var user = _configuration.GetSection("UserCredentials:Username").Value;
             var pass = _configuration.GetSection("UserCredentials:Password").Value;
+            
+            var admin = _configuration.GetSection("AdminCredentials:Username").Value;
+            var adminpass = _configuration.GetSection("AdminCredentials:Password").Value;
 
             if (User.FullName == user && User.PhoneNumber == pass)
             {
                 HttpContext.Session.SetInt32("Role", 0);
+                return RedirectToPage("/Index");
+            }
+
+            if (User.FullName == admin && User.PhoneNumber == adminpass)
+            {
+                HttpContext.Session.SetInt32("Role", 1);
                 return RedirectToPage("/Index");
             }
             TempData["Message"] = "Thông tin đăng nhập sai ! ";

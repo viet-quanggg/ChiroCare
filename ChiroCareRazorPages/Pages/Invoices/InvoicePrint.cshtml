@@ -1,0 +1,161 @@
+@page
+@using System.Globalization
+@model ChiroCareRazorPages.Pages.Invoices.InvoicePrint
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<link rel="stylesheet" href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css'>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<style>
+    body{margin-top:20px;
+    background-color:#eee;
+    }
+    
+    .card {
+        box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+    }
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid rgba(0,0,0,.125);
+        border-radius: 1rem;
+    }
+</style>
+
+<div class="container">
+<div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="invoice-title">
+                        <h4 class="float-end font-size-15">Thông tin hoá đơn <span class="badge bg-success font-size-12 ms-2">@Model.Invoice.InvoiceStatus</span></h4>
+                        <div class="mb-4">
+                            <img src="/Assets/Logo/chirologo2.png" alt="ChiroCare Logo">
+                        </div>
+                        <div class="text-muted">
+                            <p class="mb-1">152 Nguyễn Tư Giản, Phường 12, Gò Vấp, Thành phố Hồ Chí Minh </p>
+                            <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i>chirocare152@gmail.com</p>
+                            <p><i class="uil uil-phone me-1"></i> 0984 199 945</p>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="text-muted">
+                                <h5 class="font-size-16 mb-3">Hoá đơn của:</h5>
+                                <h5 class="font-size-15 mb-2">@Model.Invoice.Patient.FullName</h5>
+                                <p class="mb-1">@Model.Invoice.Patient.Address</p>
+                                <p class="mb-1">@Model.Invoice.Patient.EmailAddress</p>
+                                <p>@Model.Invoice.Patient.PhoneNumber</p>
+                                <h5 class="font-size-15 mb-2">Chuẩn đoán:</h5>
+                                <p>@Model.Invoice.InvoiceDiagnose</p>
+                                <h5 class="font-size-15 mb-2">Chi tiết</h5>
+                                <p>@Model.Invoice.InvoiceDescription</p>
+                                <h5 class="font-size-15 mb-2">Ghi chú</h5>
+                                <p>@Model.Invoice.InvoiceNote</p>
+                                
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-sm-6">
+                            <div class="text-muted text-sm-end">
+                                <div>
+                                    <h5 class="font-size-15 mb-1">Mã hoá đơn:</h5>
+                                    <p>@Model.Invoice.InvoiceId</p>
+                                </div>
+                                <div class="mt-4">
+                                    <h5 class="font-size-15 mb-1">Ngày xuất hoá đơn:</h5>
+                                    <p>@Model.Invoice.CreateDate.ToShortDateString()</p>
+                                </div>
+                                <div class="mt-4">
+                                    <h5 class="font-size-15 mb-1">Phương thức thanh toán:</h5>
+                                    <p>@Model.Invoice.InvoiceMethod</p>
+                                </div>
+                                <div class="mt-4">
+                                    <h5 class="font-size-15 mb-1">Trạng thái:</h5>
+                                    <p style="color: darkgreen" >@Model.Invoice.InvoiceStatus</p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <!-- end row -->
+                    
+                    <div class="py-2">
+                        <h5 class="font-size-15">Thông tin chi tiết</h5>
+
+<div class="table-responsive">
+    <table class="table align-middle table-nowrap table-centered mb-0">
+        <thead>
+            <tr>
+                <th style="width: 5%;">Số TT</th>
+                <th style="width: 25%;">Tên dịch vụ</th>
+                <th style="width: 10%;">Giá</th>
+                <th style="width: 10%;">Số buổi</th>
+                <th style="width: 10%;">Khuyến mãi</th>
+                <th style="width: 20%;" class="text-end">Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @Model.Invoice.InvoiceServices)
+            {
+                <tr>
+                    <td></td>
+                    <td>
+                        <div>
+                            <h5 class="text-truncate font-size-14 mb-1">@item.Service.ServiceName</h5>
+                            <p class="text-muted mb-0">@item.Service.ServiceDescription</p>
+                        </div>
+                    </td>
+                    <td>@item.Service.ServicePrice.ToString("C", CultureInfo.CurrentCulture)</td>
+                    <td>@item.Invoice.Quantity</td>
+                    <td>@item.Invoice.DiscountPercent%</td>
+                    <td class="text-end">@item.Invoice.InvoiceTotal.ToString("C", CultureInfo.CurrentCulture)</td>
+                </tr>
+            }
+            <!-- end tr -->
+            <tr>
+                <td colspan="4"></td>
+                <td class="text-end">Tạm tính</td>
+                <td class="text-end">@Model.Invoice.InvoiceTotal.ToString("C", CultureInfo.CurrentCulture)</td>
+            </tr>
+            <!-- end tr -->
+            <tr>
+                <td colspan="4" class="border-0"></td>
+                <td class="border-0 text-end">Khuyến mãi :</td>
+                <td class="border-0 text-end">@Model.Invoice.DiscountPercent%</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="border-0"></td>
+                <td class="border-0 text-end">Tổng cộng</td>
+                <td class="border-0 text-end">@Model.Invoice.InvoiceTotal.ToString("C", CultureInfo.CurrentCulture)</td>
+            </tr>
+            <!-- end tr -->
+        </tbody>
+    </table>
+</div>
+                        <div class="d-print-none mt-4">
+                            <div class="float-end">
+                                <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end col -->
+    </div>
+</div>
