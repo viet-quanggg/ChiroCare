@@ -80,16 +80,24 @@ namespace ChiroCareRazorPages.Pages.Invoices
                     });
                     Invoice.InvoiceTotal += Invoice.Quantity * service.ServicePrice;
                 }
+
+                if (Invoice.DiscountPercent != null)
+                {
+                    decimal discountFraction = (decimal)Invoice.DiscountPercent / 100; // Convert percent to fraction
+                    decimal afterDiscount = Invoice.InvoiceTotal * (1 - discountFraction); // Calculate discounted amount
+                    Invoice.InvoiceTotal = afterDiscount; // Apply discount
+                }
+
             
                 Invoice.Patient = invoiceUser;
             
                 invoiceUser.UserInvoices.Add(Invoice);
                 _context.Entry(User).State = EntityState.Detached;
                 await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
+                return Redirect("/Customers/Details?id=" + invoiceUser.UserId);
 
             }
-             if (invoiceUser == null)
+            if (invoiceUser == null)
                 {
                     User.Role = 0;
                     User.PhoneNumber = phoneNum;
@@ -109,14 +117,20 @@ namespace ChiroCareRazorPages.Pages.Invoices
                         });
                         Invoice.InvoiceTotal += Invoice.Quantity * service.ServicePrice;
                     }
+                    
+                    if (Invoice.DiscountPercent != null)
+                    {
+                        decimal? afterDiscount = Invoice.InvoiceTotal * ((100 -Invoice.DiscountPercent)/100);
+                        Invoice.InvoiceTotal = (decimal)afterDiscount;
+                    }
             
                     Invoice.Patient = createdUser;
             
                     createdUser.UserInvoices.Add(Invoice);
                     _context.Entry(User).State = EntityState.Detached;
                     await _context.SaveChangesAsync();
-                    return RedirectToPage("./Index");
-                }
+                    return Redirect("/Customers/Details?id=" + createdUser.UserId);
+            }
 
             return Page();
 

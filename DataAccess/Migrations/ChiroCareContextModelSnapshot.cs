@@ -31,6 +31,9 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime");
 
+                    b.Property<int?>("DiscountPercent")
+                        .HasColumnType("int");
+
                     b.Property<string>("InvoiceDescription")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -110,7 +113,6 @@ namespace DataAccess.Migrations
                         .HasColumnName("SessionInfo");
 
                     b.Property<string>("SessionTreatment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")

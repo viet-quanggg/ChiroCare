@@ -26,6 +26,8 @@ namespace BusinessObject
 
         public string? InvoiceDiagnose { get; set; }
         public string? InvoiceNote { get; set; }
+        [Range(1, 100, ErrorMessage = "Khuyến mãi phải lớn hơn 0 nhỏ hơn 100% !")]
+        public int? DiscountPercent { get; set; }
 
         [DataType(DataType.Currency)]
         public decimal InvoiceTotal { get; set; }

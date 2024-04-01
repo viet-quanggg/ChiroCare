@@ -7,6 +7,8 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
     <ItemGroup>
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
@@ -21,15 +23,13 @@
 
     <ItemGroup>
       <Folder Include="Pages\Customers\" />
-      <Folder Include="Pages\Invoices\" />
       <Folder Include="Pages\ServiceCategories\" />
       <Folder Include="Pages\Services\" />
-      <Folder Include="Pages\Sessions\" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.16" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.16">
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.17">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>

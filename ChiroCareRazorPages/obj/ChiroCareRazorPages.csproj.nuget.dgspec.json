@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/ChiroCareRazorPages.csproj": {}
+    "/Users/viet-quanggg/SelfProjects/ChiroCare 2/ChiroCareRazorPages/ChiroCareRazorPages.csproj": {}
   },
   "projects": {
-    "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj": {
+    "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj",
+        "projectUniqueName": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj",
         "projectName": "BusinessObject",
-        "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj",
+        "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj",
         "packagesPath": "/Users/viet-quanggg/.nuget/packages/",
-        "outputPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/obj/",
+        "outputPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/viet-quanggg/.nuget/NuGet/NuGet.Config"
@@ -68,14 +68,14 @@
         }
       }
     },
-    "/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/ChiroCareRazorPages.csproj": {
+    "/Users/viet-quanggg/SelfProjects/ChiroCare 2/ChiroCareRazorPages/ChiroCareRazorPages.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/ChiroCareRazorPages.csproj",
+        "projectUniqueName": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/ChiroCareRazorPages/ChiroCareRazorPages.csproj",
         "projectName": "ChiroCareRazorPages",
-        "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/ChiroCareRazorPages.csproj",
+        "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/ChiroCareRazorPages/ChiroCareRazorPages.csproj",
         "packagesPath": "/Users/viet-quanggg/.nuget/packages/",
-        "outputPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/ChiroCareRazorPages/obj/",
+        "outputPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/ChiroCareRazorPages/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/viet-quanggg/.nuget/NuGet/NuGet.Config"
@@ -91,14 +91,14 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj": {
-                "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj"
+              "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj": {
+                "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj"
               },
-              "/Users/viet-quanggg/SelfProjects/ChiroCare/DataAccess/DataAccess.csproj": {
-                "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/DataAccess/DataAccess.csproj"
+              "/Users/viet-quanggg/SelfProjects/ChiroCare 2/DataAccess/DataAccess.csproj": {
+                "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/DataAccess/DataAccess.csproj"
               },
-              "/Users/viet-quanggg/SelfProjects/ChiroCare/Repository/Repository.csproj": {
-                "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/Repository/Repository.csproj"
+              "/Users/viet-quanggg/SelfProjects/ChiroCare 2/Repository/Repository.csproj": {
+                "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/Repository/Repository.csproj"
               }
             }
           }
@@ -121,7 +121,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.16, )"
+              "version": "[7.0.17, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -165,14 +165,14 @@
         }
       }
     },
-    "/Users/viet-quanggg/SelfProjects/ChiroCare/DataAccess/DataAccess.csproj": {
+    "/Users/viet-quanggg/SelfProjects/ChiroCare 2/DataAccess/DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/viet-quanggg/SelfProjects/ChiroCare/DataAccess/DataAccess.csproj",
+        "projectUniqueName": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/DataAccess/DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/DataAccess/DataAccess.csproj",
+        "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/DataAccess/DataAccess.csproj",
         "packagesPath": "/Users/viet-quanggg/.nuget/packages/",
-        "outputPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/DataAccess/obj/",
+        "outputPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/DataAccess/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/viet-quanggg/.nuget/NuGet/NuGet.Config"
@@ -188,8 +188,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj": {
-                "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj"
+              "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj": {
+                "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj"
               }
             }
           }
@@ -263,14 +263,14 @@
         }
       }
     },
-    "/Users/viet-quanggg/SelfProjects/ChiroCare/Repository/Repository.csproj": {
+    "/Users/viet-quanggg/SelfProjects/ChiroCare 2/Repository/Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/viet-quanggg/SelfProjects/ChiroCare/Repository/Repository.csproj",
+        "projectUniqueName": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/Repository/Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/Repository/Repository.csproj",
+        "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/Repository/Repository.csproj",
         "packagesPath": "/Users/viet-quanggg/.nuget/packages/",
-        "outputPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/Repository/obj/",
+        "outputPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/Repository/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/viet-quanggg/.nuget/NuGet/NuGet.Config"
@@ -286,8 +286,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/viet-quanggg/SelfProjects/ChiroCare/DataAccess/DataAccess.csproj": {
-                "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/DataAccess/DataAccess.csproj"
+              "/Users/viet-quanggg/SelfProjects/ChiroCare 2/DataAccess/DataAccess.csproj": {
+                "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/DataAccess/DataAccess.csproj"
               }
             }
           }

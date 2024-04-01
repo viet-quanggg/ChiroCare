@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj": {}
+    "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj": {}
   },
   "projects": {
-    "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj": {
+    "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj",
+        "projectUniqueName": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj",
         "projectName": "BusinessObject",
-        "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/BusinessObject.csproj",
+        "projectPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/BusinessObject.csproj",
         "packagesPath": "/Users/viet-quanggg/.nuget/packages/",
-        "outputPath": "/Users/viet-quanggg/SelfProjects/ChiroCare/BusinessObject/obj/",
+        "outputPath": "/Users/viet-quanggg/SelfProjects/ChiroCare 2/BusinessObject/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/viet-quanggg/.nuget/NuGet/NuGet.Config"

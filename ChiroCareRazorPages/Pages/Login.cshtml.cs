@@ -22,6 +22,7 @@ namespace ChiroCareRazorPages.Pages
 
         public IActionResult OnGet()
         {
+            HttpContext.Session.Clear();
             return Page();
         }
 

@@ -23,13 +23,13 @@ public class ChiroCareContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<WorkShift> WorkShifts { get; set; }
     
-    private string? GetConnectionString()
+    private string GetConnectionString()
     {
         var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         IConfiguration configuration = builder.Build();
-        return configuration.GetConnectionString("ConnectionStrings:DefaultConnection");
+        return configuration.GetConnectionString("DefaultConnection");
     }
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
@@ -37,7 +37,7 @@ public class ChiroCareContext : DbContext
         {
             options.EnableSensitiveDataLogging();
             options.EnableDetailedErrors();
-            options.UseSqlServer( "Server=(local);Database=ChiroCare;uid=sa;pwd=123456@Aa;Trusted_Connection=false;TrustServerCertificate=True;");
+            options.UseSqlServer("Server=(local);Database=ChiroCare;uid=sa;pwd=123456@Aa;Trusted_Connection=false;TrustServerCertificate=True;");
         }
     }
 

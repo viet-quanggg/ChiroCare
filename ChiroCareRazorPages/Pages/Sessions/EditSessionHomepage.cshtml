@@ -1,0 +1,137 @@
+﻿@page
+@model ChiroCareRazorPages.Pages.Sessions.EditSessionHomepageModel
+
+@{
+    ViewData["Title"] = "EditSessionHomepage";
+}
+
+<style>
+     body {
+         font-family: Arial, sans-serif;
+         background-color: #f4f4f4;
+     }
+
+     .container-form {
+         max-width: 500px;
+         margin: auto;
+         padding: 20px;
+         background-color: #fff;
+         border-radius: 8px;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     }
+
+     h1 {
+         text-align: center;
+         color: #333;
+     }
+
+     h4 {
+         margin-bottom: 20px;
+         color: #333;
+     }
+
+     .form-group {
+         margin-bottom: 20px;
+     }
+
+     label {
+         font-weight: bold;
+     }
+
+     input[type="text"],
+     select {
+         width: 100%;
+         padding: 10px;
+         border: 1px solid #ccc;
+         border-radius: 4px;
+         box-sizing: border-box;
+     }
+
+     input[type="submit"] {
+         width: 100%;
+         padding: 10px;
+         border: none;
+         border-radius: 4px;
+         background-color: #007bff;
+         color: #fff;
+         cursor: pointer;
+         transition: background-color 0.3s;
+     }
+
+         input[type="submit"]:hover {
+             background-color: #0056b3;
+         }
+
+     .text-danger {
+         color: #dc3545;
+     }
+
+     .text-center {
+         text-align: center;
+     }
+</style>
+
+
+<div class="container-form">
+    <h1>Cập nhật buổi khám</h1>
+    <hr />
+
+    <h4>Thông tin buổi khám</h4>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Session.SessionId" />
+        <div class="form-group">
+            <label asp-for="Session.TherapistId" class="control-label">Người điều trị</label>
+            <select asp-for="Session.TherapistId" class="form-control" asp-items="ViewBag.TherapistId"></select>
+            <span asp-validation-for="Session.TherapistId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Session.PatientId" class="control-label">Khách hàng</label>
+            <select asp-for="Session.PatientId" class="form-control" asp-items="ViewBag.PatientId"></select>
+            <span asp-validation-for="Session.PatientId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Session.SessionTreatment" class="control-label">Liệu trình</label>
+            <input asp-for="Session.SessionTreatment" class="form-control" />
+            <span asp-validation-for="Session.SessionTreatment" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Session.SessionInfo" class="control-label">Chi tiết</label>
+            <input asp-for="Session.SessionInfo" class="form-control" />
+            <span asp-validation-for="Session.SessionInfo" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Session.SessionAppointment" class="control-label">Ngày hẹn khám</label>
+            <input asp-for="Session.SessionAppointment" class="form-control" />
+            <span asp-validation-for="Session.SessionAppointment" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Session.Status" class="control-label">Trạng thái</label>
+            <select asp-for="Session.Status" class="form-control">
+                <option value="0">ĐÃ KHÁM</option>
+                <option value="1">CHƯA KHÁM</option>
+                <option value="2">ĐÃ ĐẶT LỊCH</option>
+            </select>
+            <span asp-validation-for="Session.Status" class="text-danger"></span>
+        </div>
+
+        <div hidden="" class="form-group">
+            <label asp-for="Session.InvoiceId" class="control-label"></label>
+            <select asp-for="Session.InvoiceId" class="form-control" asp-items="ViewBag.InvoiceId"></select>
+            <span asp-validation-for="Session.InvoiceId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Cập nhật" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-page="./Index">Quay về danh sách</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
