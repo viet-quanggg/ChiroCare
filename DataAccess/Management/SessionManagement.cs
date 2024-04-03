@@ -45,5 +45,43 @@ public class SessionManagement
             throw new Exception(ex.Message);
         } 
     }
+    
+    public async Task<List<Session>> GetSessionsByAppointmentDate(DateTime selectedDate)
+    {
+        try
+        {
+            DateTime today = DateTime.Today;
+            _context = new ChiroCareContext();
+            var sessionList = await _context.Sessions
+                .Include(s => s.Invoice)
+                .ThenInclude(i => i.Patient)
+                .Where(s =>s.SessionAppointment.Value.Date == selectedDate.Date)
+                .ToListAsync();
+            return sessionList;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        } 
+    }
+    
+    public async Task<List<Session>> GetSessionsBySessionDate(DateTime selectedDate)
+    {
+        try
+        {
+            DateTime today = DateTime.Today;
+            _context = new ChiroCareContext();
+            var sessionList = await _context.Sessions
+                .Include(s => s.Invoice)
+                .ThenInclude(i => i.Patient)
+                .Where(s =>s.SessionDate.Date == selectedDate.Date)
+                .ToListAsync();
+            return sessionList;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        } 
+    }
 
 }

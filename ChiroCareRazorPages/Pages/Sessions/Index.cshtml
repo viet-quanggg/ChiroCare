@@ -37,6 +37,14 @@
 </style>
 
 <h1>Theo dõi liệu trình</h1>
+<div>
+    <form method="post">
+        <h3>Tìm kiếm theo ngày khám</h3>
+        <input asp-for="StartDate" type="date" class="form-control"/>
+        <button class="btn btn-primary" value="Tìm" type="submit" >Tìm</button>
+    </form>
+</div>
+<br/>
 <div class="card">
     <div class="table-responsive">
 <table class="table" id="sessionTable">

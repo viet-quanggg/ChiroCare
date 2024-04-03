@@ -149,7 +149,7 @@
                                                                     <a class="btn btn-info btn-sm" asp-page="/Invoices/Details" asp-route-id="@item.InvoiceId">Chi tiết</a>
                                                                     @if (item.ListSessions.Count < item.Quantity || item.ListSessions.Count < 0)
                                                                     {
-                                                                        <a class="btn btn-warning btn-sm" asp-page="/Sessions/CreateSessionUserDetails" asp-route-id="@item.InvoiceId">Thêm buổi khám mới</a>
+                                                                        <a class="btn btn-warning btn-sm" asp-page="/Sessions/CreateSessionUserDetails" asp-route-id="@item.InvoiceId">Thêm buổi điều trị mới</a>
                                                                     }
                                                                     @if (item.ListSessions.Count == item.Quantity)
                                                                     {

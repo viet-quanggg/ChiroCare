@@ -9,22 +9,24 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObject;
 using BusinessObject.ChiroEnums;
 using DataAccess.Data;
+using Repository.IRepository;
 
 namespace ChiroCareRazorPages.Pages.Sessions
 {
     public class EditModel : PageModel
     {
         private readonly DataAccess.Data.ChiroCareContext _context;
-
-        public EditModel(DataAccess.Data.ChiroCareContext context)
+        private readonly IInvoiceRepository _invoiceRepository;
+        public EditModel(DataAccess.Data.ChiroCareContext context, IInvoiceRepository invoiceRepository)
         {
             _context = context;
+            _invoiceRepository = invoiceRepository;
         }
 
         [BindProperty]
         public Session Session { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
             if (id == null || _context.Sessions == null)
             {
@@ -40,8 +42,8 @@ namespace ChiroCareRazorPages.Pages.Sessions
             }
             Session = session;
            ViewData["InvoiceId"] = new SelectList(_context.Invoices.Where(i => i.InvoiceId == Session.InvoiceId), "InvoiceId", "InvoiceId");
-           ViewData["PatientId"] = new SelectList(_context.Users.Where(u => u.UserId == Session.PatientId), "UserId", "FullName");
-           ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role==Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
+           ViewData["PatientId"] = new SelectList(_context.Users.Where(u => u.UserId == session.PatientId), "UserId", "FullName");
+           ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role == BusinessObject.ChiroEnums.Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
             return Page();
         }
 

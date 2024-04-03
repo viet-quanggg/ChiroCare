@@ -1,4 +1,5 @@
-﻿using BusinessObject;
+﻿using Azure;
+using BusinessObject;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Repository.IRepository;
@@ -16,11 +17,21 @@ public class IndexModel : PageModel
     }
     [BindProperty]
     public IList<Session> Sessions { get; set; }
+    [BindProperty]
+    public DateTime StartDate { get; set; }
 
     public async Task<IActionResult> OnGetAsync()
     {
+        StartDate = DateTime.Today.Date; 
         var list = await _sessionRepository.GetSessionsToday();
         Sessions = list;
+        return Page();
+    }
+
+    public async Task<IActionResult> OnPostAsync()
+    {
+        var updatedList = await _sessionRepository.GetSessionsByAppointmentDate(StartDate.Date);
+        Sessions = updatedList;
         return Page();
     }
 }

@@ -6,68 +6,136 @@
     ViewData["Title"] = "Trang chủ";
 }
 <style>
-    .card{
-    margin-top: 20px;
-    margin-bottom: 20px;
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
     }
+
+    .card {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #333;
+    }
+
+    .btn {
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    table {
+        border: solid black 1px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+         border: 1px solid #dee2e6;
+                  padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+                  border: 1px solid #dee2e6;
+                 
+        
+    }
+     #sessionTable tbody tr:hover {
+               background-color: #f5f5f5;
+           }
+
+
 </style>
 
+
 <div class="text-center">
-    <h1 class="display-4">Chào mừng <strong>Chiro Care</strong> !</h1>
-    
+    <h2 class="display-4">Chào mừng <strong>Chiro Care</strong> !</h2>
 </div>
-<h2>Danh sách buổi khám ngày: <strong style="color: #4169E1">@DateTime.Today.ToShortDateString()</strong> </h2>
-<div>
-    <a class="btn btn-primary" asp-page="/Invoices/Create" >Tạo hoá đơn mới</a>
-    <a class="btn btn-primary" asp-page="/Customers/Create" >Tạo hồ sơ bệnh nhân</a>
+<div class="card">
+    <div>
+        <a class="btn btn-primary" asp-page="/Invoices/Create" >Tạo hoá đơn mới</a>
+        <a class="btn btn-primary" asp-page="/Customers/Create" >Tạo hồ sơ bệnh án</a>
+    </div>
 </div>
-<div>
-    <div class="card">
+
+<div class="card">
+    <h3>Chọn ngày để xem lịch đặt trước:</h3>
+    <form method="post">
+        <div class="form-group">
+            <div id="datepicker-group" class="input-group date" data-date-format="dd/mm/yyyy">
+                <input asp-for="StartDate" type="date" class="form-control"/>
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div>
+        </div>
+        <br/>
+        <button class="btn btn-primary" type="submit">Xem</button>
+    </form>
+
+</div>
+
+<div class="card">
+<h2>Danh sách buổi điều trị ngày: <strong style="color: #4169E1">@Model.StartDate.ToShortDateString()</strong> </h2>
+    <div >
         <div class="table-responsive">
-    <table class="table" id="sessionTable">
-                    <thead>
+            <table class="table" id="sessionTable">
+                <thead>
+                <tr>
+                    <th>Giờ hẹn khám</th>
+                    <th>Liệu trình</th>
+                    <th>SĐT Khách hàng</th>
+                    <th>Khách hàng</th>
+                    <th>Trạng thái</th>
+                    <th>Chức năng</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Sessions)
+                {
                     <tr>
-                        <th>Giờ hẹn khám</th>
-                        <th>Liệu trình</th>
-                        <th>SĐT Khách hàng</th>
-                        <th>Khách hàng</th>
-                        <th>Trạng thái</th>
-                        <th>Chức năng</th>
+                        <td style="color: #4169E1"><strong>@Html.DisplayFor(modelItem => item.SessionAppointment.Value.TimeOfDay)</strong></td>
+                        <td>@Html.DisplayFor(modelItem => item.SessionTreatment)</td>
+                        <td><strong>@Html.DisplayFor(modelItem => item.Patient.PhoneNumber)</strong></td>
+                        <td>
+                            <a class="btn btn-link" asp-page="/Invoices/Details" asp-route-id="@item.Invoice.InvoiceId">@Html.DisplayFor(modelItem => item.Patient.FullName)</a>
+                        </td>
+                        <td>
+                            @if (item.Status == SessionStatus.CHƯAKHÁM)
+                            {
+                                <strong style="color: firebrick">@Html.DisplayFor(modelItem => item.Status)</strong>
+                            }
+                            @if (item.Status == SessionStatus.ĐÃĐẶTLỊCH)
+                            {
+                                <strong style="color: #ff8f36">@Html.DisplayFor(modelItem => item.Status)</strong>
+                            }
+                            @if (item.Status == SessionStatus.ĐÃKHÁM)
+                            {
+                                <strong style="color: darkgreen">@Html.DisplayFor(modelItem => item.Status)</strong>
+                            }
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-page="/Sessions/EditSessionHomepage" asp-route-id="@item.SessionId">Cập nhật</a>
+                            <a class="btn btn-danger" asp-page="/Sessions/Delete" asp-route-id="@item.SessionId">Xoá</a>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    @foreach (var item in Model.Sessions)
-                    {
-                        <tr>
-                            <td style="color: #4169E1"><strong>@Html.DisplayFor(modelItem => item.SessionAppointment.Value.TimeOfDay)</strong></td>
-                            <td>@Html.DisplayFor(modelItem => item.SessionTreatment)</td>
-                            <td><strong>@Html.DisplayFor(modelItem => item.Patient.PhoneNumber)</strong></td>
-                            <td>
-                                <a class="btn btn-link" asp-page="/Invoices/Details" asp-route-id="@item.Invoice.InvoiceId">@Html.DisplayFor(modelItem => item.Patient.FullName)</a>
-                            </td>
-                            <td>
-                                @if (item.Status == SessionStatus.CHƯAKHÁM)
-                                {
-                                    <strong style="color: firebrick">@Html.DisplayFor(modelItem => item.Status)</strong>
-                                }
-                                @if (item.Status == SessionStatus.ĐÃĐẶTLỊCH)
-                                {
-                                    <strong style="color: #ff8f36">@Html.DisplayFor(modelItem => item.Status)</strong>
-                                }
-                                @if (item.Status == SessionStatus.ĐÃKHÁM)
-                                {
-                                    <strong style="color: darkgreen">@Html.DisplayFor(modelItem => item.Status)</strong>
-                                }
-                            </td>
-                            <td>
-                                <a class="btn btn-primary" asp-page="/Sessions/EditSessionHomepage" asp-route-id="@item.SessionId">Cập nhật</a>
-                                <a class="btn btn-danger" asp-page="/Sessions/Delete" asp-route-id="@item.SessionId">Xoá</a>
-                            </td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
-            
+                }
+                </tbody>
+            </table>
+
         </div>
     </div>
 

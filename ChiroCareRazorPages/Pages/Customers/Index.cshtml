@@ -64,7 +64,10 @@
                     {
                         <tr>
                             <td><strong>@item.PhoneNumber</strong></td>
-                            <td>@item.FullName</td>
+                            <td>
+                                <a class="btn btn-link" asp-page="/Customers/Details" asp-route-id="@item.UserId">@Html.DisplayFor(modelItem => item.FullName)</a>
+                                @* @item.FullName *@
+                            </td>
                             <td>@item.Dob.Date</td>
                             <td>@if (item.Gender == 1)
                                 {

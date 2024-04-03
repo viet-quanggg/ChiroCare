@@ -51,7 +51,7 @@
                     <th>Số lượng buổi khám</th>
                     <th>Thành tiền</th>
                     <th>Chức năng</th>
-                    <th>Cập nhật trạng thái</th>
+                    <th>Cập nhật thông tin</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -80,7 +80,9 @@
                             }
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.InvoiceDescription)</td>
+                        <td>
+                                <a asp-page="/Invoices/Details" asp-route-id="@item.InvoiceId">@Html.DisplayFor(modelItem => item.InvoiceDescription)</a>
+                        </td>
                         <td>@Html.DisplayFor(modelItem => item.InvoiceNote)</td>
                         <td>@Html.DisplayFor(modelItem => item.Quantity)</td>
         
@@ -104,7 +106,7 @@
                             }
                             @if (item.ListSessions.Count < item.Quantity)
                             {
-                                <a class="btn btn-warning" asp-page="/Sessions/Create" asp-route-id="@item.InvoiceId">Cập nhật buổi khám</a>
+                                <a class="btn btn-warning" asp-page="/Sessions/Create" asp-route-id="@item.InvoiceId">Cập nhật buổi điều trị</a>
                             }
                             @if (item.InvoiceStatus is InvoiceStatus.CÒNTHIẾU or InvoiceStatus.CHƯATHANHTOÁN)
                             {
@@ -113,7 +115,7 @@
         
                         </td>
                         <td>
-                            <a class="btn btn-primary" asp-page="/Invoices/Edit" asp-route-id="@item.InvoiceId">Cập nhật trạng thái</a>
+                            <a class="btn btn-primary" asp-page="/Invoices/Edit" asp-route-id="@item.InvoiceId">Cập nhật thông tin</a>
                         </td>
                     </tr>
                 }

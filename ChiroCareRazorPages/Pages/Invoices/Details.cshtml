@@ -140,11 +140,11 @@
         <h4 class="card-title">Theo dõi liệu trình</h4>
         @if (Model.Invoice.ListSessions.Count < Model.Invoice.Quantity)
         {
-            <a class="btn btn-primary" asp-page="/Sessions/Create" asp-route-id="@Model.Invoice.InvoiceId">Cập nhật buổi khám</a> 
+            <a class="btn btn-primary" asp-page="/Sessions/Create" asp-route-id="@Model.Invoice.InvoiceId">Thêm buổi điều trị</a> 
         }
         @if (Model.Invoice.ListSessions.Count == Model.Invoice.Quantity)
         {
-            <h3 style="color: darkgreen">Đã khám đủ số buổi!</h3>
+            <h3 style="color: darkgreen">Đã điều trị đủ số buổi!</h3>
         }
         @if (Model.Invoice.ListSessions != null && Model.Invoice.ListSessions.Count > 0)
         {
@@ -190,7 +190,7 @@
         else
         {
             <div class="alert alert-warning" role="alert">
-                Chưa có buổi khám nào!
+                Chưa có buổi điều trị nào!
             </div>
         }
     </div>

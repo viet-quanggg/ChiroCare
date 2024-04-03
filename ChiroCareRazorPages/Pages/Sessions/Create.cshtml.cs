@@ -8,26 +8,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObject;
 using BusinessObject.ChiroEnums;
 using DataAccess.Data;
+using Repository.IRepository;
 
 namespace ChiroCareRazorPages.Pages.Sessions
 {
     public class CreateModel : PageModel
     {
         private readonly DataAccess.Data.ChiroCareContext _context;
+        private readonly IInvoiceRepository _invoiceRepository;
 
-        public CreateModel(DataAccess.Data.ChiroCareContext context)
+        public CreateModel(DataAccess.Data.ChiroCareContext context, IInvoiceRepository invoiceRepository)
         {
             _context = context;
+            _invoiceRepository = invoiceRepository;
         }
 
         // public Guid invoiceId { get; set; }
 
-        public IActionResult OnGet()
-        { 
-            // ViewData["InvoiceId"] = id;
-            // invoiceId = id;
-        ViewData["PatientId"] = new SelectList(_context.Users.Where(u => u.Role == Role.KHÁCHHÀNG), "UserId", "FullName");
-        ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role == Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
+        public async Task<IActionResult> OnGet(Guid id)
+        {
+            Invoice invoice = await _invoiceRepository.GetInvoiceDetail(id);
+            ViewData["PatientId"] = new SelectList(_context.Users.Where(u => u.UserId == invoice.PatientId), "UserId", "FullName");
+            ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role == BusinessObject.ChiroEnums.Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
             return Page();
         }
         

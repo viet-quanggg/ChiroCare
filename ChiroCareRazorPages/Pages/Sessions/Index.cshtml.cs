@@ -7,22 +7,27 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject;
 using DataAccess.Data;
+using Repository.IRepository;
 
 namespace ChiroCareRazorPages.Pages.Sessions
 {
     public class IndexModel : PageModel
     {
         private readonly DataAccess.Data.ChiroCareContext _context;
-
-        public IndexModel(DataAccess.Data.ChiroCareContext context)
+        private readonly ISessionRepository _sessionRepository;
+        public IndexModel(DataAccess.Data.ChiroCareContext context, ISessionRepository sessionRepository)
         {
             _context = context;
+            _sessionRepository = sessionRepository;
         }
 
         public IList<Session> Session { get;set; } = default!;
 
+        [BindProperty]
+        public DateTime StartDate { get; set; }
         public async Task OnGetAsync()
         {
+            StartDate = DateTime.Today;
             if (_context.Sessions != null)
             {
                 Session = await _context.Sessions
@@ -31,6 +36,13 @@ namespace ChiroCareRazorPages.Pages.Sessions
                     .Include(s => s.Invoice)
                 .Include(s => s.Therapist).ToListAsync();
             }
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            var updatedList = await _sessionRepository.GetSessionsBySessionDate(StartDate.Date);
+            Session = updatedList;
+            return Page();
         }
     }
 }
