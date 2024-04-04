@@ -10,32 +10,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b77d25ef-e747-4b97-825b-5f8db42fd422" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ChiroCare/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ChiroCare/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Details.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Index.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Index.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Invoices/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Invoices/Details.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Invoices/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Invoices/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Create.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Create.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Details.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Edit.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Edit.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Index.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Index.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/Management/SessionManagement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Management/SessionManagement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/IRepository/ISessionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/IRepository/ISessionRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/Repository/SessionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/Repository/SessionRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.csproj.FileListAbsolute.txt" afterDir="false" />
-    </list>
+    <list default="true" id="b77d25ef-e747-4b97-825b-5f8db42fd422" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,28 +30,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.ChiroCareRazorPages: http.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.customizations",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.ChiroCareRazorPages: http.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/Users/viet-quanggg/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
-      "/Users/viet-quanggg/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache",
-      "/Users/viet-quanggg/.local/share/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/viet-quanggg/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/viet-quanggg/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/Users/viet-quanggg/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.ChiroCareRazorPages: http">
     <configuration name="ChiroCareRazorPages: Test" type="DotNetMsBuildPublish" factoryName="Publish to IIS">
       <riderPublish publish_profile="Test.pubxml" pubxml_path="$PROJECT_DIR$/ChiroCareRazorPages/Properties/PublishProfiles/Test.pubxml" uuid_high="-7419765871857809231" uuid_low="-8905847550091990114" />
@@ -126,7 +101,7 @@
       <option name="presentableId" value="Default" />
       <updated>1711941667825</updated>
       <workItem from="1711941670157" duration="11777000" />
-      <workItem from="1712119851618" duration="5984000" />
+      <workItem from="1712119851618" duration="6086000" />
     </task>
     <servers />
   </component>
