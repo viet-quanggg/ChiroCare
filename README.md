@@ -1,5 +1,5 @@
-A Razor Page Web Application which is used to manage Chiropactic Clinic
+A Razor Page Web Application that is used to manage Chiropractic Clinics (ChiroCare)
 
-Database: Using Microsoft Azure Cloud Database
+Database: MSSQL
 
-Publish: Azure Web Publishment
+Publish: IIS
