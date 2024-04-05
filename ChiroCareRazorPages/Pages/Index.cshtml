@@ -1,6 +1,6 @@
 ﻿@page "/Home"
-@using BusinessObject.ChiroEnums
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using BusinessObject.ChiroEnums
 @model IndexModel
 @{
     ViewData["Title"] = "Trang chủ";
@@ -60,6 +60,57 @@
            }
 
 
+    /* Dropdown Button */
+    .dropbtn {
+      background-color: #008080; /* Teal background color */
+      color: #fff; /* White text color */
+      padding: 12px 20px; /* Adjust padding */
+      font-size: 16px;
+      border: none;
+      border-radius: 4px; /* Rounded corners */
+      cursor: pointer;
+    }
+    
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff; /* White background color */
+      min-width: 160px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+      z-index: 1;
+      border-radius: 4px; /* Rounded corners */
+    }
+    
+    /* Links inside the dropdown */
+    .dropdown-content a {
+      color: #333; /* Dark text color */
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {
+      background-color: #f4f4f4; /* Light gray background color on hover */
+    }
+    
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+      background-color: #005555; /* Darker background color on hover */
+    }
+
 </style>
 
 
@@ -68,8 +119,8 @@
 </div>
 <div class="card">
     <div>
-        <a class="btn btn-primary" asp-page="/Invoices/Create" >Tạo hoá đơn mới</a>
-        <a class="btn btn-primary" asp-page="/Customers/Create" >Tạo hồ sơ bệnh án</a>
+        <a class="btn btn-primary" asp-page="/Invoices/Create">Tạo hoá đơn mới</a>
+        <a class="btn btn-primary" asp-page="/Customers/Create">Tạo hồ sơ bệnh án</a>
     </div>
 </div>
 
@@ -79,7 +130,9 @@
         <div class="form-group">
             <div id="datepicker-group" class="input-group date" data-date-format="dd/mm/yyyy">
                 <input asp-for="StartDate" type="date" class="form-control"/>
-                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </span>
             </div>
         </div>
         <br/>
@@ -89,7 +142,7 @@
 </div>
 
 <div class="card">
-<h2>Danh sách buổi điều trị ngày: <strong style="color: #4169E1">@Model.StartDate.ToShortDateString()</strong> </h2>
+    <h2>Danh sách buổi điều trị ngày: <strong style="color: #4169E1">@Model.StartDate.ToShortDateString()</strong> </h2>
     <div >
         <div class="table-responsive">
             <table class="table" id="sessionTable">
@@ -107,14 +160,27 @@
                 @foreach (var item in Model.Sessions)
                 {
                     <tr>
-                        <td style="color: #4169E1"><strong>@Html.DisplayFor(modelItem => item.SessionAppointment.Value.TimeOfDay)</strong></td>
+                        <td style="color: #4169E1">
+                            <strong>@Html.DisplayFor(modelItem => item.SessionAppointment.Value.TimeOfDay)</strong>
+                        </td>
                         <td>@Html.DisplayFor(modelItem => item.SessionTreatment)</td>
-                        <td><strong>@Html.DisplayFor(modelItem => item.Patient.PhoneNumber)</strong></td>
                         <td>
-                            <a class="btn btn-link" asp-page="/Invoices/Details" asp-route-id="@item.Invoice.InvoiceId">@Html.DisplayFor(modelItem => item.Patient.FullName)</a>
+                            <strong>@Html.DisplayFor(modelItem => item.Patient.PhoneNumber)</strong>
                         </td>
                         <td>
-                            @if (item.Status == SessionStatus.CHƯAKHÁM)
+                            
+                            <div class="dropdown">
+                                <button class="dropbtn">@Html.DisplayFor(modelItem => item.Patient.FullName)</button>
+                                <div class="dropdown-content">
+                                    <a asp-page="/Customers/Details" asp-route-id="@item.Invoice.PatientId">Thông tin khách hàng</a>
+                                    <a asp-page="/Invoices/Details" asp-route-id="@item.Invoice.InvoiceId">Thông tin hoá đơn</a>
+                                    <a asp-page="/Invoices/Create" asp-route-id="@item.Invoice.Patient.PhoneNumber">Tạo hoá đơn mới</a>
+                                </div>
+                            </div>
+                            @* <a class="btn btn-link" asp-page="/Invoices/Details" asp-route-id="@item.Invoice.InvoiceId"></a> *@
+                        </td>
+                        <td>
+                            @if (item.Status == SessionStatus.CHƯAĐIỀUTRỊ)
                             {
                                 <strong style="color: firebrick">@Html.DisplayFor(modelItem => item.Status)</strong>
                             }
@@ -122,16 +188,183 @@
                             {
                                 <strong style="color: #ff8f36">@Html.DisplayFor(modelItem => item.Status)</strong>
                             }
-                            @if (item.Status == SessionStatus.ĐÃKHÁM)
+                            @if (item.Status == SessionStatus.ĐÃĐIỀUTRỊ)
                             {
                                 <strong style="color: darkgreen">@Html.DisplayFor(modelItem => item.Status)</strong>
                             }
                         </td>
                         <td>
-                            <a class="btn btn-primary" asp-page="/Sessions/EditSessionHomepage" asp-route-id="@item.SessionId">Cập nhật</a>
-                            <a class="btn btn-danger" asp-page="/Sessions/Delete" asp-route-id="@item.SessionId">Xoá</a>
+                            @* <a class="btn btn-primary" asp-page="/Sessions/EditSessionHomepage" asp-route-id="@item.SessionId">Cập nhật</a> *@
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@item.SessionId" data-id="@item.SessionId">Xoá</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal-@item.SessionId" data-id="@item.SessionId">Cập nhật</button>
+
                         </td>
                     </tr>
+                    <div class="container">
+                        <!-- Modal -->
+                        <div class="modal fade" id="updateModal-@item.SessionId" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Cập nhật thông tin buổi điều trị</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Thông tin buổi điều trị</h4>
+                                        <form method="post" asp-page-handler="Update">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <input type="hidden" value="@item.SessionId" asp-for="Session.SessionId"/>
+                                            <div class="form-group">
+                                                <label asp-for="Session.TherapistId" class="control-label">Người điều trị</label>
+                                                <select asp-for="Session.TherapistId" class="form-control" asp-items="ViewBag.TherapistId"></select>
+                                                <span asp-validation-for="Session.TherapistId" class="text-danger"></span>
+                                            </div>
+                                            <div hidden="" class="form-group">
+                                                <label asp-for="Session.TherapistId" class="control-label">Người điều trị</label>
+                                                <input asp-for="Session.TherapistId" value="@item.TherapistId" class="form-control"></input>
+                                                <span asp-validation-for="Session.TherapistId" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Session.PatientId" class="control-label">Khách hàng</label>
+                                                <input readonly="" value="@item.Patient.FullName" class="form-control"></input>
+                                                <span asp-validation-for="Session.PatientId" class="text-danger"></span>
+                                            </div>
+
+                                            <div hidden="" class="form-group">
+                                                <label asp-for="Session.PatientId" class="control-label">Khách hàng</label>
+                                                <input asp-for="Session.PatientId" value="@item.PatientId" class="form-control"></input>
+                                                <span asp-validation-for="Session.PatientId" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Session.SessionTreatment" class="control-label">Liệu trình</label>
+                                                <input asp-for="Session.SessionTreatment" value="@item.SessionTreatment" class="form-control"/>
+                                                <span asp-validation-for="Session.SessionTreatment" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Session.SessionInfo" class="control-label">Chi tiết</label>
+                                                <input asp-for="Session.SessionInfo" value="@item.SessionInfo" class="form-control"/>
+                                                <span asp-validation-for="Session.SessionInfo" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Session.SessionAppointment" class="control-label">Ngày hẹn khám</label>
+                                                <input type="datetime-local" value="@item.SessionAppointment.Value.ToString("yyyy-MM-ddTHH:mm")" asp-for="Session.SessionAppointment" class="form-control"/>
+                                                <span asp-validation-for="Session.SessionAppointment" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Session.Status" class="control-label">Trạng thái</label>
+                                                <select asp-for="Session.Status" class="form-control">
+                                                    <option value="0" selected="@(item.Status == SessionStatus.ĐÃĐIỀUTRỊ ? "selected" : null)">ĐÃ ĐIỀU TRỊ</option>
+                                                    <option value="1" selected="@(item.Status == SessionStatus.CHƯAĐIỀUTRỊ ? "selected" : null)">CHƯA ĐIỀU TRỊ</option>
+                                                    <option value="2" selected="@(item.Status == SessionStatus.ĐÃĐẶTLỊCH ? "selected" : null)">ĐÃ ĐẶT LỊCH</option>
+                                                </select>
+                                                <span asp-validation-for="Session.Status" class="text-danger"></span>
+                                            </div>
+                                            <div hidden="" class="form-group">
+                                                <label asp-for="Session.InvoiceId" class="control-label"></label>
+                                                <input asp-for="Session.InvoiceId" value="@item.InvoiceId" class="form-control"></input>
+                                                <span asp-validation-for="Session.InvoiceId" class="text-danger"></span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ</button>
+                                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="container">
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal-@item.SessionId" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Xoá buổi điều trị</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Thông tin buổi điều trị</h4>
+                                        <form method="post" asp-page-handler="Delete">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <input type="hidden" value="@item.SessionId" asp-for="Session.SessionId"/>
+                                            <style>
+                                           .session-details {
+                                               display: flex;
+                                               flex-wrap: wrap;
+                                               padding: 10px;
+                                               border: 1px solid #ccc;
+                                               border-radius: 5px;
+                                               margin-bottom: 10px;
+                                           }
+                                       
+                                           .session-details dt {
+                                               flex: 1 30%;
+                                               font-weight: bold;
+                                               margin-bottom: 5px;
+                                           }
+                                       
+                                           .session-details dd {
+                                               flex: 1 70%;
+                                               margin-bottom: 5px;
+                                           }
+                                       </style>
+
+                                            <div class="session-details">
+                                                <dt>Bệnh nhân</dt>
+                                                <dd><strong>@item.Patient.FullName</strong></dd>
+                                                <dt>Liệu trình</dt>
+                                                <dd>@item.SessionTreatment</dd>
+                                                <dt>Chi tiết</dt>
+                                                <dd>@item.SessionInfo</dd>
+                                                <dt>Ngày khám</dt>
+                                                <dd>@item.SessionDate</dd>
+                                                <dt>Ngày hẹn khám</dt>
+                                                <dd style="color: #4169E1" >@item.SessionAppointment</dd>
+                                                <dt>Trạng thái</dt>
+                                                <dd>
+                                                    @if (item.Status == SessionStatus.CHƯAĐIỀUTRỊ)
+                                                    {
+                                                        <strong style="color: firebrick">@Html.DisplayFor(modelItem => item.Status)</strong>
+                                                    }
+                                                    @if (item.Status == SessionStatus.ĐÃĐẶTLỊCH)
+                                                    {
+                                                        <strong style="color: #ff8f36">@Html.DisplayFor(modelItem => item.Status)</strong>
+                                                    }
+                                                    @if (item.Status == SessionStatus.ĐÃĐIỀUTRỊ)
+                                                    {
+                                                        <strong style="color: darkgreen">@Html.DisplayFor(modelItem => item.Status)</strong>
+                                                    }
+                                                </dd>
+
+                                            </div>
+
+                                            <div hidden="" class="form-group">
+                                                <label asp-for="Session.InvoiceId" class="control-label"></label>
+                                                <input asp-for="Session.InvoiceId" value="@item.InvoiceId" class="form-control"></input>
+                                                <span asp-validation-for="Session.InvoiceId" class="text-danger"></span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                                                <button type="submit" class="btn btn-danger">Xoá</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
                 }
                 </tbody>
             </table>
@@ -139,15 +372,21 @@
         </div>
     </div>
 
+
 </div>
 
 @section Scripts
 {
     <script>
-        $(document).ready(function() {
+$(document).ready(function() {
+                 
+                 
             $('#sessionTable').DataTable({
                 responsive: true
             });
+            
         });
+        
+    
     </script>
 }

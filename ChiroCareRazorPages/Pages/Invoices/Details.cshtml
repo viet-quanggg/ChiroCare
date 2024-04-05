@@ -6,6 +6,7 @@
 @{
     ViewData["Title"] = "Chi Tiết Hoá Đơn";
     Layout = "~/Pages/Shared/_Layout.cshtml";
+    
 }
 
 <style>
@@ -153,6 +154,7 @@
                     <thead>
                     <tr>
                         <th>Ngày khám</th>
+                        <th>Ngày hẹn khám</th>
                         <th>Liệu trình</th>
                         <th>Chi tiết</th>
                         <th>Người điều trị</th>
@@ -164,11 +166,12 @@
                     {
                         <tr>
                             <td><a class="btn btn-link" asp-page="/Sessions/Details" asp-route-id="@item.SessionId">@Html.DisplayFor(modelItem => item.SessionDate)</a></td>
+                            <td  style="color: #4169E1">@item.SessionAppointment</td>
                             <td>@item.SessionTreatment</td>
                             <td>@item.SessionInfo</td>
                             <td>@item.Therapist.FullName</td>
                             <td>
-                                @if (item.Status == SessionStatus.CHƯAKHÁM)
+                                @if (item.Status == SessionStatus.CHƯAĐIỀUTRỊ)
                                 {
                                     <strong style="color: firebrick">@Html.DisplayFor(modelItem => item.Status)</strong>
                                 }
@@ -176,7 +179,7 @@
                                 {
                                     <strong style="color: #ff8f36">@Html.DisplayFor(modelItem => item.Status)</strong>
                                 }
-                                @if (item.Status == SessionStatus.ĐÃKHÁM)
+                                @if (item.Status == SessionStatus.ĐÃĐIỀUTRỊ)
                                 {
                                     <strong style="color: darkgreen">@Html.DisplayFor(modelItem => item.Status)</strong>
                                 }

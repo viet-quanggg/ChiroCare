@@ -71,7 +71,7 @@
                             <a class="btn btn-link" asp-page="/Invoices/Details" asp-route-id="@item.Invoice.InvoiceId">@Html.DisplayFor(modelItem => item.Patient.FullName)</a>
                         </td>
                         <td>
-                            @if (item.Status == SessionStatus.CHƯAKHÁM)
+                            @if (item.Status == SessionStatus.CHƯAĐIỀUTRỊ)
                             {
                                 <strong style="color: firebrick">@Html.DisplayFor(modelItem => item.Status)</strong>
                             }
@@ -79,7 +79,7 @@
                             {
                                 <strong style="color: #ff8f36">@Html.DisplayFor(modelItem => item.Status)</strong>
                             }
-                            @if (item.Status == SessionStatus.ĐÃKHÁM)
+                            @if (item.Status == SessionStatus.ĐÃĐIỀUTRỊ)
                             {
                                 <strong style="color: darkgreen">@Html.DisplayFor(modelItem => item.Status)</strong>
                             }

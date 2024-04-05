@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - ChiroCareRazorPages</title>
+    <title> @ViewData["Title"] - ChiroCare Quản Lý Phòng Khám</title>
+    <link rel="shortcut icon" href="Assets/Logo/Chiro%20CareLogo.png" type="image/x-icon">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/ChiroCareRazorPages.styles.css" asp-append-version="true"/>
@@ -20,10 +21,14 @@
         <div class="container">
             @if (Context.Session.GetInt32("Role") == 0)
             {            
-                <a class="navbar-brand" asp-area="" asp-page="/Index">ChiroCare</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">
+                    <img src="Assets/Logo/chirologo3.png" alt="ChiroCare" class="logo">
+                </a>
             }else if (Context.Session.GetInt32("Role") == null)
             {
-                <a class="navbar-brand" asp-area="" asp-page="/Login">ChiroCare</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Login">
+                    <img src="Assets/Logo/chirologo3.png" alt="ChiroCare" class="logo">
+                </a>
 
             }
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -38,7 +43,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Quản lý bệnh nhân</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Quản lý bệnh án</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Invoices/Index">Hoá Đơn</a>
@@ -88,7 +93,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2024 - ChiroCareRazorPages - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        &copy; 2024 - ChiroCare Quản Lý Phòng Khám - <a asp-area="" asp-page="/Privacy">Điều khoản</a>
     </div>
 </footer>
 
