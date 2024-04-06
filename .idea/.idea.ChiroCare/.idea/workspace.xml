@@ -11,53 +11,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b77d25ef-e747-4b97-825b-5f8db42fd422" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ChiroCareRazorPages/wwwroot/Assets/Logo/Chiro CareLogo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ChiroCare/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ChiroCare/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessObject/ChiroEnums/SessionStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessObject/ChiroEnums/SessionStatus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessObject/obj/Debug/net7.0/BusinessObject.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessObject/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessObject/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessObject/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessObject/obj/rider.project.model.nuget.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Details.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Details.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Details.cshtml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Customers/Edit.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Index.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Index.cshtml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Invoices/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Invoices/Create.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Invoices/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Invoices/Details.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/EditSessionHomepage.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/EditSessionHomepage.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Sessions/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Shared/_Layout.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/ChiroCareRazorPages.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/ChiroCareRazorPages.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Invoices/Details.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/Pages/Invoices/Details.cshtml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/Debug/net7.0/ChiroCareRazorPages.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/DataAccess.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/DataAccess.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/DataAccess.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/DataAccess.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChiroCareRazorPages/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ChiroCareRazorPages/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/Management/InvoiceManagement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Management/InvoiceManagement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/Management/SessionManagement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Management/SessionManagement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/Debug/net7.0/DataAccess.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/Debug/net7.0/Repository.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/obj/Repository.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/Repository.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Repository/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repository/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +44,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b47524aeb81a49cbb2334dddacaac12e7da00/bc/3c8a11ab/PageActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ChiroCareRazorPages/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -83,7 +59,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.ChiroCareRazorPages: http.executor": "Run",
+    ".NET Launch Settings Profile.ChiroCareRazorPages: http.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -154,7 +130,8 @@
       <workItem from="1711941670157" duration="11777000" />
       <workItem from="1712119851618" duration="6086000" />
       <workItem from="1712204841532" duration="790000" />
-      <workItem from="1712286075122" duration="26259000" />
+      <workItem from="1712286075122" duration="26417000" />
+      <workItem from="1712370088410" duration="11711000" />
     </task>
     <servers />
   </component>

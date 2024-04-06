@@ -36,6 +36,7 @@ public class SessionManagement
             var sessionList = await _context.Sessions
                 .Include(s => s.Invoice)
                 .ThenInclude(i => i.Patient)
+                .ThenInclude(i => i.UserSessions)
                 .Where(s =>s.SessionAppointment.Value.Date == today.Date)
                 .ToListAsync();
             return sessionList;
@@ -55,6 +56,7 @@ public class SessionManagement
             var sessionList = await _context.Sessions
                 .Include(s => s.Invoice)
                 .ThenInclude(i => i.Patient)
+                .ThenInclude(i => i.UserSessions)
                 .Where(s =>s.SessionAppointment.Value.Date == selectedDate.Date)
                 .ToListAsync();
             return sessionList;

@@ -244,14 +244,28 @@
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="Session.SessionInfo" class="control-label">Chi tiết</label>
-                                                <input asp-for="Session.SessionInfo" value="@item.SessionInfo" class="form-control"/>
+                                                <textarea  asp-for="Session.SessionInfo" value="@item.SessionInfo" class="form-control"></textarea>
                                                 <span asp-validation-for="Session.SessionInfo" class="text-danger"></span>
                                             </div>
                                             <div class="form-group">
-                                                <label asp-for="Session.SessionAppointment" class="control-label">Ngày hẹn khám</label>
+                                                <label asp-for="Session.SessionAppointment" class="control-label">Giờ hẹn khám của buổi hôm nay</label>
                                                 <input type="datetime-local" value="@item.SessionAppointment.Value.ToString("yyyy-MM-ddTHH:mm")" asp-for="Session.SessionAppointment" class="form-control"/>
                                                 <span asp-validation-for="Session.SessionAppointment" class="text-danger"></span>
                                             </div>
+                                            @if (item.Invoice.ListSessions.Count < item.Invoice.Quantity)
+                                            {
+                                                <hr/>
+                                                <div class="form-group">
+                                                    <label asp-for="Session.SessionAppointment" class="control-label">Đặt lịch hẹn điều trị tiếp theo</label>
+                                                    <input type="datetime-local" asp-for="NextAppointmentDateTime" class="form-control"/>
+                                                    <span asp-validation-for="Session.SessionAppointment" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Session.SessionTreatment" class="control-label">Liệu trình buổi điều trị tiếp theo</label>
+                                                    <input value="@item.SessionTreatment" asp-for="NextAppointmentTreatment"  class="form-control"/>
+                                                    <span asp-validation-for="Session.SessionTreatment" class="text-danger"></span>
+                                                </div>
+                                            }
                                             <div class="form-group">
                                                 <label asp-for="Session.Status" class="control-label">Trạng thái</label>
                                                 <select asp-for="Session.Status" class="form-control">

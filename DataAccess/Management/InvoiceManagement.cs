@@ -43,12 +43,12 @@ public class InvoiceManagement
         }
     } 
     
-    public  Task<Invoice> GetInvoiceDetail(Guid id)
+    public async Task<Invoice> GetInvoiceDetail(Guid id)
     {
         _context = new ChiroCareContext();
         try
         {
-            var invoice =  _context.Invoices
+            var invoice =  await _context.Invoices
                 .Include(i => i.Patient)
                 .Include(i => i.ListSessions)
                     .ThenInclude(i => i.Therapist)

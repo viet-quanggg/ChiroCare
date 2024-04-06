@@ -1,7 +1,8 @@
 @page
-@using BusinessObject.ChiroEnums
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model ChiroCareRazorPages.Pages.Customers.DetailsModel
+@using System.Globalization
+@using BusinessObject.ChiroEnums
+@model DetailsModel
 
 @{
     ViewData["Title"] = "Thông Tin Khách Hàng";
@@ -54,132 +55,205 @@
 
 <h1>Thông Tin Khách Hàng</h1>
 
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Thông tin khách hàng</h4>
-                    <dl class="row">
-                        <dt class="col-sm-4">Số điện thoại:</dt>
-                        <dd class="col-sm-8"><strong>@Model.User.PhoneNumber</strong></dd>
-                        <dt class="col-sm-4">Tên đầy đủ:</dt>
-                        <dd class="col-sm-8">@Model.User.FullName</dd>
-                        <dt class="col-sm-4">Ngày sinh:</dt>
-                        <dd class="col-sm-8">@Model.User.Dob.Date</dd>
-                        <dt class="col-sm-4">Giới tính:</dt>
-                        <dd class="col-sm-8">@if (Model.User.Gender == 1) { <text>Nam</text> } else { <text>Nữ</text> }</dd>
-                        <dt class="col-sm-4">Vai trò:</dt>
-                        <dd class="col-sm-8">
-                            @if (@Model.User.Role == Role.KHÁCHHÀNG)
-                            {
-                                <strong style="color: darkgreen">@Model.User.Role</strong>
-                            }
-                            @if (@Model.User.Role == Role.NGƯỜIĐIỀUTRỊ)
-                            {
-                                <strong style="color: firebrick">@Model.User.Role</strong>
-                            }
-                        </dd>
-                        <dt class="col-sm-4">Nghề nghiệp:</dt>
-                        <dd class="col-sm-8">@Model.User.Job</dd>
-                        <dt class="col-sm-4">Tiền sử bệnh:</dt>
-                        <dd class="col-sm-8">@Model.User.History</dd>
-                        <dt class="col-sm-4">Email:</dt>
-                        <dd class="col-sm-8">@Model.User.EmailAddress</dd>
-                    </dl>
-                </div>
-            </div>
+<div class="container">
+    <hr/>
+    <a class="btn btn-info" asp-page="./Edit" asp-route-id="@Model.User?.UserId">Chỉnh sửa thông tin</a>
+    <a class="btn btn-secondary" asp-page="./Index">Trở về danh sách khách hàng</a>
+</div>
+<br/>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin khách hàng</h4>
+        <dl class="row">
+            <dt class="col-sm-4">Số điện thoại:</dt>
+            <dd class="col-sm-8">
+                <strong>@Model.User.PhoneNumber</strong>
+            </dd>
+            <dt class="col-sm-4">Tên đầy đủ:</dt>
+            <dd class="col-sm-8">@Model.User.FullName</dd>
+            <dt class="col-sm-4">Ngày sinh:</dt>
+            <dd class="col-sm-8">@Model.User.Dob.Date</dd>
+            <dt class="col-sm-4">Giới tính:</dt>
+            <dd class="col-sm-8">
+                @if (Model.User.Gender == 1)
+                {
+                    <text>Nam</text>
+                }
+                else
+                {
+                    <text>Nữ</text>
+                }
+            </dd>
+            <dt class="col-sm-4">Vai trò:</dt>
+            <dd class="col-sm-8">
+                @if (Model.User.Role == Role.KHÁCHHÀNG)
+                {
+                    <strong style="color: darkgreen">@Model.User.Role</strong>
+                }
+                @if (Model.User.Role == Role.NGƯỜIĐIỀUTRỊ)
+                {
+                    <strong style="color: firebrick">@Model.User.Role</strong>
+                }
+            </dd>
+            <dt class="col-sm-4">Nghề nghiệp:</dt>
+            <dd class="col-sm-8">@Model.User.Job</dd>
+            <dt class="col-sm-4">Tiền sử bệnh:</dt>
+            <dd class="col-sm-8">@Model.User.History</dd>
+            <dt class="col-sm-4">Email:</dt>
+            <dd class="col-sm-8">@Model.User.EmailAddress</dd>
+        </dl>
+    </div>
+</div>
 
 <div class="card">
     <div class="card-body">
         <div class="card-title">
             <h4>Hoá đơn của @Model.User.FullName</h4>
         </div>
-        
-            <p>
-                <a class="btn btn-primary" asp-route-id="@Model.User.PhoneNumber" asp-page="/Invoices/Create">Tạo Hoá Đơn Mới</a>
-            </p>
-            @if (Model.User.UserInvoices != null && Model.User.UserInvoices.Count > 0)
-            {
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
+
+        <p>
+            <a class="btn btn-primary" asp-route-id="@Model.User.PhoneNumber" asp-page="/Invoices/Create">Tạo Hoá Đơn Mới</a>
+        </p>
+        @if (Model.User.UserInvoices != null && Model.User.UserInvoices.Count > 0)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
                         <table id="invoiceTable">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Ngày xuất</th>
-                                                            <th>Trạng thái</th>
-                                                            <th>Chi tiết</th>
-                                                            <th>Số lượng buổi</th>
-                                                            <th>Thành tiền</th>
-                                                            <th></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @foreach (var item in Model.User.UserInvoices)
-                                                        {
-                                                            <tr>
-                                                                <td>@item.CreateDate</td>
-                                                                <td>
-                                                                    @if (item.InvoiceStatus == InvoiceStatus.ĐÃTHANHTOÁN)
-                                                                    {
-                                                                        <strong style="color: darkgreen">
-                                                                            @item.InvoiceStatus
-                                                                        </strong>
-                                                                    }
-                                                                    @if (item.InvoiceStatus == InvoiceStatus.CHƯATHANHTOÁN)
-                                                                    {
-                                                                        <strong style="color: firebrick">
-                                                                            @item.InvoiceStatus
-                                                                        </strong>
-                                                                    }
-                                                                    @if (item.InvoiceStatus == InvoiceStatus.CÒNTHIẾU)
-                                                                    {
-                                                                        <strong style="color: #ff8f36">
-                                                                            @item.InvoiceStatus
-                                                                        </strong>
-                                                                    }
-                                                                </td>
-                                                                <td>@item.InvoiceDescription</td>
-                                                                <td>@item.Quantity</td>
-                                                                @{
-                                                                    decimal invoiceTotal = item.InvoiceTotal;
-                                                                    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
-                                                                    string formattedTotal = invoiceTotal.ToString("C", culture);
-                                                                }
-                                                                <td><strong>@formattedTotal</strong></td>
-                                                                <td>
-                                                                    <a class="btn btn-info btn-sm" asp-page="/Invoices/Details" asp-route-id="@item.InvoiceId">Chi tiết</a>
-                                                                    @if (item.ListSessions.Count < item.Quantity)
-                                                                    {
-                                                                        <a class="btn btn-warning btn-sm" asp-page="/Sessions/CreateSessionUserDetails" asp-route-id="@item.InvoiceId">Thêm buổi điều trị mới</a>
-                                                                    }
-                                                                    @if (item.ListSessions.Count == item.Quantity)
-                                                                    {
-                                                                        <strong style="color: darkgreen">Đã khám đủ số buổi !</strong>
-                                                                    }
-                                                                </td>
-                                                            </tr>
-                                                        }
-                                                        </tbody>
-                                                    </table>
-                            
-                        </div>
+                            <thead>
+                            <tr>
+                                <th>Ngày xuất</th>
+                                <th>Trạng thái</th>
+                                <th>Chi tiết</th>
+                                <th>Số lượng buổi</th>
+                                <th>Thành tiền</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model.User.UserInvoices)
+                            {
+                                <tr>
+                                    <td>@item.CreateDate</td>
+                                    <td>
+                                        @if (item.InvoiceStatus == InvoiceStatus.ĐÃTHANHTOÁN)
+                                        {
+                                            <strong style="color: darkgreen">
+                                                @item.InvoiceStatus
+                                            </strong>
+                                        }
+                                        @if (item.InvoiceStatus == InvoiceStatus.CHƯATHANHTOÁN)
+                                        {
+                                            <strong style="color: firebrick">
+                                                @item.InvoiceStatus
+                                            </strong>
+                                        }
+                                        @if (item.InvoiceStatus == InvoiceStatus.CÒNTHIẾU)
+                                        {
+                                            <strong style="color: #ff8f36">
+                                                @item.InvoiceStatus
+                                            </strong>
+                                        }
+                                    </td>
+                                    <td>@item.InvoiceDescription</td>
+                                    <td>@item.Quantity</td>
+                                    @{
+                                        var invoiceTotal = item.InvoiceTotal;
+                                        var culture = new CultureInfo("vi-VN");
+                                        var formattedTotal = invoiceTotal.ToString("C", culture);
+                                    }
+                                    <td>
+                                        <strong>@formattedTotal</strong>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" asp-page="/Invoices/Details" asp-route-id="@item.InvoiceId">Chi tiết</a>
+                                        @if (item.ListSessions.Count < item.Quantity)
+                                        {
+                                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#createModal-@item.InvoiceId" data-id="@item.InvoiceId">Thêm buổi điều trị mới</button>
+
+                                        }
+                                        @if (item.ListSessions.Count == item.Quantity)
+                                        {
+                                            <strong style="color: darkgreen">Đã khám đủ số buổi !</strong>
+                                        }
+                                    </td>
+                                </tr>
+
+
+                                <div class="modal fade" id="createModal-@item.InvoiceId" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Thêm buổi điều trị cho hoá đơn [@item.InvoiceDescription] </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>Thông tin buổi điều trị</h4>
+                                                <form method="post" asp-page-handler="CreateSession" asp-route-id="@item.InvoiceId">
+                                                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                          <div class="form-group">
+                                                              <label asp-for="Session.TherapistId" class="control-label">Người điều trị</label>
+                                                              <select asp-for="Session.TherapistId" class="form-control" asp-items="ViewBag.TherapistId"></select>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label asp-for="Session.PatientId" class="control-label">Khách hàng</label>
+                                                              <select asp-for="Session.PatientId" class="form-control" asp-items="ViewBag.PatientId"></select>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label asp-for="Session.SessionTreatment" class="control-label">Liệu trình</label>
+                                                              <input asp-for="Session.SessionTreatment" class="form-control"/>
+                                                              <span asp-validation-for="Session.SessionTreatment" class="text-danger"></span>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label asp-for="Session.SessionInfo" class="control-label">Chi tiết</label>
+                                                              <textarea  asp-for="Session.SessionInfo" class="form-control"></textarea>
+                                                              <span asp-validation-for="Session.SessionInfo" class="text-danger"></span>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label asp-for="Session.SessionAppointment" class="control-label">Hẹn ngày khám</label>
+                                                              <input asp-for="Session.SessionAppointment" class="form-control"/>
+                                                              <span asp-validation-for="Session.SessionAppointment" class="text-danger"></span>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label asp-for="Session.Status" class="control-label">Trạng thái</label>
+                                                              <select asp-for="Session.Status" class="form-control">
+                                                                  <option value="0">ĐÃ ĐIỀU TRỊ</option>
+                                                                  <option value="1">CHƯA ĐIỀU TRỊ</option>
+                                                                  <option value="2">ĐÃ ĐẶT LỊCH</option>
+                                                              </select>
+                                                              <span asp-validation-for="Session.Status" class="text-danger"></span>
+                                                          </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ</button>
+                                                        <button type="submit" class="btn btn-primary">Tạo</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
-            }
-            else
-            {
-                <div class="alert alert-warning" role="alert">
-                    Khách hàng chưa có hoá đơn!
-                </div>
-            }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">
+                Khách hàng chưa có hoá đơn!
+            </div>
+        }
 
     </div>
 </div>
 
-<div class="container">
-    <hr />
-    <a class="btn btn-info" asp-page="./Edit" asp-route-id="@Model.User?.UserId">Chỉnh sửa</a>
-    <a class="btn btn-secondary" asp-page="./Index">Trở về danh sách</a>
-</div>
+
 
 @section Scripts
 {

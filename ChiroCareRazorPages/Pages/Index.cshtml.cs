@@ -14,18 +14,23 @@ public class IndexModel : PageModel
     private readonly ChiroCareContext _context;
     private readonly ILogger<IndexModel> _logger;
     private readonly ISessionRepository _sessionRepository;
+    private readonly IInvoiceRepository _invoiceRepository;
 
 
-    public IndexModel(ILogger<IndexModel> logger, ISessionRepository sessionRepository, ChiroCareContext context)
+    public IndexModel(ILogger<IndexModel> logger, ISessionRepository sessionRepository, ChiroCareContext context, IInvoiceRepository invoiceRepository)
     {
         _logger = logger;
         _sessionRepository = sessionRepository;
         _context = context;
+        _invoiceRepository = invoiceRepository;
     }
 
     [BindProperty] public IList<Session> Sessions { get; set; }
 
     [BindProperty] public DateTime StartDate { get; set; }
+
+    [BindProperty] public DateTime? NextAppointmentDateTime { get; set; }
+    [BindProperty] public string? NextAppointmentTreatment { get; set; }
 
 
     [BindProperty] public Session Session { get; set; } = default!;
@@ -55,9 +60,24 @@ public class IndexModel : PageModel
     // For more details, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostUpdateAsync()
     {
+        var invoice = await _invoiceRepository.GetInvoiceDetail(Session.InvoiceId);
         Session.SessionDate = DateTime.Now;
         _context.Attach(Session).State = EntityState.Modified;
+        if (NextAppointmentDateTime.HasValue && invoice.ListSessions.Count < invoice.Quantity)
+        {
+            Session NextSession = new Session();
+            NextSession.SessionId = new Guid();
+            NextSession.SessionDate = DateTime.Now;
+            NextSession.SessionAppointment = NextAppointmentDateTime;
+            NextSession.SessionTreatment = NextAppointmentTreatment;
+            NextSession.InvoiceId = Session.InvoiceId;
+            NextSession.PatientId = Session.PatientId;
+            NextSession.TherapistId = Session.TherapistId;
+            NextSession.Status = SessionStatus.ĐÃĐẶTLỊCH;
+            await _context.Sessions.AddAsync(NextSession);
+            invoice.ListSessions.Add(NextSession);
 
+        }
 
         try
         {
