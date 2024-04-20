@@ -135,6 +135,7 @@ namespace ChiroCareRazorPages.Pages.Invoices
                 try
                 {
                     await _context.SaveChangesAsync();
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -148,7 +149,7 @@ namespace ChiroCareRazorPages.Pages.Invoices
                     }
                 }
 
-                return Page();
+                return Redirect("/Invoices/Details?id=" + invoice.InvoiceId);
             }
 
             private bool InvoiceExists(Guid id)

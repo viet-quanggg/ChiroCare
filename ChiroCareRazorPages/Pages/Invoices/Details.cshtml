@@ -154,10 +154,9 @@
         </dl>
     </div>
     
-    <td>
         <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateInvoiceModal-@Model.Invoice.InvoiceId" >Cập nhật thông tin hoá đơn</a>
-    </td>
     <br/>
+    
     
      <div class="modal fade" id="updateInvoiceModal-@Model.Invoice.InvoiceId" role="dialog">
                                 <div class="modal-dialog">
@@ -211,17 +210,17 @@
                                                    <div class="form-group">
                                                        <label asp-for="UpdateInvoice.InvoiceMethod" class="control-label">Thanh Toán</label>
                                                        <select asp-for="UpdateInvoice.InvoiceMethod" class="form-control">
-                                                           <option value="1">CHUYỂN KHOẢN</option>
-                                                           <option value="0">TIỀN MẶT</option>
+                                                           <option value="1" selected="@(Model.Invoice.InvoiceMethod == InvoiceMethod.CHUYỂNKHOẢN ? "selected" : null)">CHUYỂN KHOẢN</option>
+                                                           <option value="0" selected="@(Model.Invoice.InvoiceMethod == InvoiceMethod.TIỀNMẶT ? "selected" : null)">TIỀN MẶT</option>
                                                        </select>
                                                        <span asp-validation-for="Invoice.InvoiceStatus" class="text-danger"></span>
                                                    </div>
                                                    <div class="form-group">
                                                        <label asp-for="UpdateInvoice.InvoiceStatus" class="control-label">Trạng thái</label>
                                                        <select asp-for="UpdateInvoice.InvoiceStatus" class="form-control">
-                                                           <option value="0">ĐÃ THANH TOÁN</option>
-                                                           <option value="1">CÒN THIẾU</option>
-                                                           <option value="2">CHƯA THANH TOÁN</option>
+                                                           <option value="0" selected="@(Model.Invoice.InvoiceStatus == InvoiceStatus.ĐÃTHANHTOÁN ? "selected" : null)">ĐÃ THANH TOÁN</option>
+                                                           <option value="1" selected="@(Model.Invoice.InvoiceStatus == InvoiceStatus.CÒNTHIẾU ? "selected" : null)">CÒN THIẾU</option>
+                                                           <option value="2" selected="@(Model.Invoice.InvoiceStatus == InvoiceStatus.CHƯATHANHTOÁN ? "selected" : null)">CHƯA THANH TOÁN</option>
                                                        </select>
                                                        <span asp-validation-for="UpdateInvoice.InvoiceStatus" class="text-danger"></span>
                                                    </div>
@@ -280,14 +279,16 @@
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Theo dõi liệu trình</h4>
+        <h4 class="card-title">Theo dõi liệu trình </h4>
         @if (Model.Invoice.ListSessions.Count < Model.Invoice.Quantity)
         {
+            <h5>[@Model.Invoice.ListSessions.Count/@Model.Invoice.Quantity buổi]</h5>
+            <br/>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal-@Model.Invoice.InvoiceId" data-id="@Model.Invoice.InvoiceId">Thêm buổi điều trị mới</button>
         }
         @if (Model.Invoice.ListSessions.Count == Model.Invoice.Quantity)
         {
-            <h3 style="color: darkgreen">Đã điều trị đủ số buổi!</h3>
+            <h3 style="color: darkgreen">Đã điều trị đủ số buổi! [@Model.Invoice.ListSessions.Count/@Model.Invoice.Quantity buổi]</h3>
         }
         @if (Model.Invoice.ListSessions != null && Model.Invoice.ListSessions.Count > 0)
         {
@@ -365,7 +366,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="Session.PatientId" class="control-label">Khách hàng</label>
-                                                <input readonly="" value="@item.Patient.FullName" class="form-control"></input>
+                                                <input readonly="" value="@item.Invoice.Patient.FullName" class="form-control"></input>
                                                 <span asp-validation-for="Session.PatientId" class="text-danger"></span>
                                             </div>
 
@@ -470,7 +471,7 @@
 
                                             <div class="session-details">
                                                 <dt>Bệnh nhân</dt>
-                                                <dd><strong>@item.Patient.FullName</strong></dd>
+                                                <dd><strong>@item.Invoice.Patient.FullName</strong></dd>
                                                 <dt>Liệu trình</dt>
                                                 <dd>@item.SessionTreatment</dd>
                                                 <dt>Chi tiết</dt>
