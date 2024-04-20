@@ -23,7 +23,7 @@ namespace BusinessObject
         [Required(ErrorMessage = "Số lượng buổi không được để trống !")]
         [Range(1, 100, ErrorMessage = "Số buổi không được để trống và phải lớn hơn 0 nhỏ hơn 100 !")]
         public int Quantity { get; set; }
-
+        public int? BonusQuanity { get; set; } 
         public string? InvoiceDiagnose { get; set; }
         public string? InvoiceNote { get; set; }
         [Range(1, 100, ErrorMessage = "Khuyến mãi phải lớn hơn 0 nhỏ hơn 100% !")]

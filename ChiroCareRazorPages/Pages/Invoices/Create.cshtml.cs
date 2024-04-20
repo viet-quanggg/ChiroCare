@@ -91,6 +91,10 @@ namespace ChiroCareRazorPages.Pages.Invoices
                     Invoice.InvoiceTotal = afterDiscount; // Apply discount
                 }
 
+                if (Invoice.BonusQuanity != null)
+                {
+                    Invoice.Quantity = (int)(Invoice.Quantity + Invoice.BonusQuanity);
+                }
             
                 Invoice.Patient = invoiceUser;
             
@@ -134,6 +138,11 @@ namespace ChiroCareRazorPages.Pages.Invoices
                     {
                         decimal? afterDiscount = Invoice.InvoiceTotal * ((100 -Invoice.DiscountPercent)/100);
                         Invoice.InvoiceTotal = (decimal)afterDiscount;
+                    }
+                    
+                    if (Invoice.BonusQuanity != null)
+                    {
+                        Invoice.Quantity = (int)(Invoice.Quantity + Invoice.BonusQuanity);
                     }
             
                     Invoice.Patient = createdUser;

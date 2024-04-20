@@ -23,7 +23,7 @@ namespace ChiroCareRazorPages.Pages.Invoices
             _invoiceRepository = invoiceRepository;
         }
 
-      public Invoice Invoice { get; set; } = default!; 
+      public Invoice Invoice { get; set; } 
       public List<Service> invoiceServices { get; set; }
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -119,6 +119,41 @@ namespace ChiroCareRazorPages.Pages.Invoices
                 }
         
                 return Redirect("/Invoices/Details?id=" + Session.InvoiceId);
+            }
+            
+            [BindProperty] public Invoice UpdateInvoice { get; set; }
+            public async Task<IActionResult> OnPostUpdateInvoiceAsync(Guid id)
+            {
+                 var invoice = await _invoiceRepository.GetInvoiceDetail(id);
+                 invoice.InvoiceDescription = UpdateInvoice.InvoiceDescription;
+                 invoice.InvoiceNote = UpdateInvoice.InvoiceNote;
+                 invoice.InvoiceDiagnose = UpdateInvoice.InvoiceDiagnose;
+                 invoice.InvoiceMethod = UpdateInvoice.InvoiceMethod;
+                 invoice.InvoiceStatus = UpdateInvoice.InvoiceStatus;
+                
+                _context.Attach(invoice).State = EntityState.Modified;
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!InvoiceExists(Invoice.InvoiceId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return Page();
+            }
+
+            private bool InvoiceExists(Guid id)
+            {
+                return (_context.Invoices?.Any(e => e.InvoiceId == id)).GetValueOrDefault();
             }
         
     }

@@ -136,20 +136,25 @@
                 <span asp-validation-for="Invoice.InvoiceDiagnose" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Invoice.InvoiceDescription" class="control-label">Chi tiết</label>
+                <label asp-for="Invoice.InvoiceDescription" class="control-label">Chi tiết *</label>
                 <input asp-for="Invoice.InvoiceDescription" class="form-control"/>
                 <span asp-validation-for="Invoice.InvoiceDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Invoice.InvoiceTotal" class="control-label">Dịch vụ: </label>
+                <label asp-for="Invoice.InvoiceTotal" class="control-label">Dịch vụ * </label>
                 <br/>
                 <select multiple="multiple" asp-items="ViewBag.Services" asp-for="serviceIds"></select>
                 <span asp-validation-for="Invoice.InvoiceTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Invoice.Quantity" class="control-label">Số lượng buổi:</label>
+                <label asp-for="Invoice.Quantity" class="control-label">Số lượng buổi *</label>
                 <input required type="number" asp-for="Invoice.Quantity" class="form-control"/>
                 <span asp-validation-for="Invoice.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Invoice.BonusQuanity" class="control-label">Số lượng buổi tặng thêm (nếu có):  </label>
+                <input type="number" asp-for="Invoice.BonusQuanity" class="form-control"/>
+                <span asp-validation-for="Invoice.BonusQuanity" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Invoice.InvoiceNote" class="control-label">Note</label>
@@ -157,7 +162,7 @@
                 <span asp-validation-for="Invoice.InvoiceNote" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Invoice.DiscountPercent" class="control-label">Khuyến mãi(%)</label>
+                <label asp-for="Invoice.DiscountPercent" class="control-label">Khuyến mãi(%)/buổi (nếu có)</label>
             <input asp-for="Invoice.DiscountPercent" class="form-control"  />
             <span asp-validation-for="Invoice.DiscountPercent" class="text-danger"></span>
             </div>

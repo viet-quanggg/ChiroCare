@@ -114,24 +114,24 @@
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Invoice.Patient.FullName)</dd>
             <dt class="col-sm-3">Trạng thái hoá đơn:</dt>
             <dt class="col-sm-9">
-                 @if (Model.Invoice.InvoiceStatus == InvoiceStatus.ĐÃTHANHTOÁN)
-                                   {
-                                       <strong style="color: darkgreen">
-                                         @Model.Invoice.InvoiceStatus
-                                       </strong>
-                                   }
-                                   @if (Model.Invoice.InvoiceStatus == InvoiceStatus.CHƯATHANHTOÁN)
-                                   {
-                                       <strong style="color: firebrick">
-                                         @Model.Invoice.InvoiceStatus
-                                           </strong>
-                                   }
-                                   @if (Model.Invoice.InvoiceStatus == InvoiceStatus.CÒNTHIẾU)
-                                   {
-                                       <strong style="color: #ff8f36">
-                                         @Model.Invoice.InvoiceStatus
-                                           </strong>
-                                   }
+                @if (Model.Invoice.InvoiceStatus == InvoiceStatus.ĐÃTHANHTOÁN)
+                {
+                    <strong style="color: darkgreen">
+                        @Model.Invoice.InvoiceStatus
+                    </strong>
+                }
+                @if (Model.Invoice.InvoiceStatus == InvoiceStatus.CHƯATHANHTOÁN)
+                {
+                    <strong style="color: firebrick">
+                        @Model.Invoice.InvoiceStatus
+                    </strong>
+                }
+                @if (Model.Invoice.InvoiceStatus == InvoiceStatus.CÒNTHIẾU)
+                {
+                    <strong style="color: #ff8f36">
+                        @Model.Invoice.InvoiceStatus
+                    </strong>
+                }
             </dt>
             <dt class="col-sm-3">Thanh toán:</dt>
             <dt class="col-sm-9">@Html.DisplayFor(model => model.Invoice.InvoiceMethod)</dt>
@@ -145,12 +145,98 @@
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Invoice.InvoiceNote)</dd>
             <dt class="col-sm-3">Số lượng buổi:</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Invoice.Quantity)</dd>
-             <dt class="col-sm-3">Khuyến mãi:</dt>
+            <dt class="col-sm-3">Số lượng buổi tặng thêm:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Invoice.BonusQuanity)</dd>
+            <dt class="col-sm-3">Khuyến mãi:</dt>
             <dt class="col-sm-9">@Html.DisplayFor(model => model.Invoice.DiscountPercent)%</dt>
             <dt class="col-sm-3">Thành tiền:</dt>
             <dt class="col-sm-9">@Html.DisplayFor(model => model.Invoice.InvoiceTotal)</dt>
         </dl>
     </div>
+    
+    <td>
+        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateInvoiceModal-@Model.Invoice.InvoiceId" >Cập nhật thông tin hoá đơn</a>
+    </td>
+    <br/>
+    
+     <div class="modal fade" id="updateInvoiceModal-@Model.Invoice.InvoiceId" role="dialog">
+                                <div class="modal-dialog">
+    
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Cập nhật thông tin hoá đơn</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>Thông tin hoá đơn của @Model.Invoice.Patient.FullName</h4>
+                                            <form method="post" asp-page-handler="UpdateInvoice" asp-route-id="@Model.Invoice.InvoiceId">
+                                                   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                   <input type="hidden" asp-for="Invoice.InvoiceId"/>
+                                                   <div hidden="" class="form-group">
+                                                       <label asp-for="Invoice.CreateDate" class="control-label"></label>
+                                                       <input asp-for="Invoice.CreateDate" class="form-control"/>
+                                                       <span asp-validation-for="Invoice.CreateDate" class="text-danger"></span>
+                                                   </div>
+                                                   <div hidden="" class="form-group">
+                                                       <label asp-for="Invoice.PatientId" class="control-label"></label>
+                                                       <select asp-for="Invoice.PatientId" class="form-control" asp-items="ViewBag.PatientId"></select>
+                                                       <span asp-validation-for="Invoice.PatientId" class="text-danger"></span>
+                                                   </div>
+                                                   <div class="form-group">
+                                                       <label asp-for="UpdateInvoice.InvoiceDescription" class="control-label">Chi tiết</label>
+                                                       <input asp-for="UpdateInvoice.InvoiceDescription" value="@Model.Invoice.InvoiceDescription" class="form-control"/>
+                                                       <span asp-validation-for="UpdateInvoice.InvoiceDescription" class="text-danger"></span>
+                                                   </div>
+                                                   <div hidden="" class="form-group">
+                                                       <label asp-for="Invoice.Quantity" class="control-label"></label>
+                                                       <input asp-for="Invoice.Quantity" class="form-control"/>
+                                                       <span asp-validation-for="Invoice.Quantity" class="text-danger"></span>
+                                                   </div>
+                                                   <div class="form-group">
+                                                       <label asp-for="UpdateInvoice.InvoiceDiagnose" class="control-label">Chẩn đoán</label>
+                                                       <input asp-for="UpdateInvoice.InvoiceDiagnose" value="@Model.Invoice.InvoiceDiagnose" class="form-control"/>
+                                                       <span asp-validation-for="UpdateInvoice.InvoiceDiagnose" class="text-danger"></span>
+                                                   </div>
+                                                   <div class="form-group">
+                                                       <label asp-for="UpdateInvoice.InvoiceNote" class="control-label">Note</label>
+                                                       <input asp-for="UpdateInvoice.InvoiceNote" value="@Model.Invoice.InvoiceNote" class="form-control"/>
+                                                       <span asp-validation-for="Invoice.InvoiceNote" class="text-danger"></span>
+                                                   </div>
+                                                   <div hidden="" class="form-group">
+                                                       <label asp-for="Invoice.InvoiceTotal" class="control-label"></label>
+                                                       <input asp-for="Invoice.InvoiceTotal" class="form-control"/>
+                                                       <span asp-validation-for="Invoice.InvoiceTotal" class="text-danger"></span>
+                                                   </div>
+                                                   <div class="form-group">
+                                                       <label asp-for="UpdateInvoice.InvoiceMethod" class="control-label">Thanh Toán</label>
+                                                       <select asp-for="UpdateInvoice.InvoiceMethod" class="form-control">
+                                                           <option value="1">CHUYỂN KHOẢN</option>
+                                                           <option value="0">TIỀN MẶT</option>
+                                                       </select>
+                                                       <span asp-validation-for="Invoice.InvoiceStatus" class="text-danger"></span>
+                                                   </div>
+                                                   <div class="form-group">
+                                                       <label asp-for="UpdateInvoice.InvoiceStatus" class="control-label">Trạng thái</label>
+                                                       <select asp-for="UpdateInvoice.InvoiceStatus" class="form-control">
+                                                           <option value="0">ĐÃ THANH TOÁN</option>
+                                                           <option value="1">CÒN THIẾU</option>
+                                                           <option value="2">CHƯA THANH TOÁN</option>
+                                                       </select>
+                                                       <span asp-validation-for="UpdateInvoice.InvoiceStatus" class="text-danger"></span>
+                                                   </div>
+                                                   <div class="form-group">
+                                                       <input  type="submit" value="Cập nhật" class="btn btn-primary"/>
+                                                   </div>
+                                               </form>
+                                        </div>
+    
+                                    </div>
+    
+                                </div>
+                            </div>
+    
+    
 </div>
 
 <div class="card">
@@ -249,6 +335,9 @@
                                 }
                             </td>
                         </tr>
+                        
+                        
+                        
                         
                         <div class="modal fade" id="updateModal-@item.SessionId" role="dialog">
                             <div class="modal-dialog">
