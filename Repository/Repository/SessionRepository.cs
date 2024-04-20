@@ -11,4 +11,9 @@ public class SessionRepository : ISessionRepository
     public Task<List<Session>> GetSessionsByAppointmentDate(DateTime selectedDate) => SessionManagement.Instance.GetSessionsByAppointmentDate(selectedDate);
     public Task<List<Session>> GetSessionsBySessionDate(DateTime selectedDate) =>
         SessionManagement.Instance.GetSessionsBySessionDate(selectedDate);
+
+    public Task<bool> CreateSession(Session session)
+    {
+        return SessionManagement.Instance.CreateSession(session);
+    }
 }

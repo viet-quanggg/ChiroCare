@@ -37,7 +37,7 @@ public class SessionManagement
                 .Include(s => s.Invoice)
                 .ThenInclude(i => i.Patient)
                 .ThenInclude(i => i.UserSessions)
-                .Where(s =>s.SessionAppointment.Value.Date == today.Date)
+                .Where(s =>s.SessionAppointment.Value.Date == today.Date || s.SessionDate.Date == today.Date)
                 .ToListAsync();
             return sessionList;
         }
@@ -84,6 +84,23 @@ public class SessionManagement
         {
             throw new Exception(ex.Message);
         } 
+    }
+
+    public async Task<bool> CreateSession(Session session)
+    {
+        try
+        {
+            _context.Sessions.Add(session);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+
+        return false;
+
     }
 
 }

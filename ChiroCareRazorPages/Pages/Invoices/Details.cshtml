@@ -257,10 +257,10 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Cập nhật buổi điều trị ngày [@item.SessionDate.ToShortDateString()]</h4>
+                                        <h4 class="modal-title">Cập nhật thông tin buổi điều trị</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <h4>Thông tin buổi điều trị</h4>
+                                        <h4>Thông tin buổi điều trị hôm nay</h4>
                                         <form method="post" asp-page-handler="Update">
                                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                             <input type="hidden" value="@item.SessionId" asp-for="Session.SessionId"/>
@@ -297,12 +297,22 @@
                                             </div>
                                             <div class="form-group">
                                                 <label asp-for="Session.SessionAppointment" class="control-label">Giờ hẹn khám của buổi hôm nay</label>
-                                                <input type="datetime-local" value="@item.SessionAppointment.Value.ToString("yyyy-MM-ddTHH:mm")" asp-for="Session.SessionAppointment" class="form-control"/>
+                                                <input type="datetime-local" value="@((item.SessionAppointment.HasValue ? item.SessionAppointment.Value.ToString("yyyy-MM-ddTHH:mm") : string.Empty))" asp-for="Session.SessionAppointment" class="form-control"/>
                                                 <span asp-validation-for="Session.SessionAppointment" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Session.Status" class="control-label">Trạng thái</label>
+                                                <select asp-for="Session.Status" class="form-control">
+                                                    <option value="0" selected="@(item.Status == SessionStatus.ĐÃĐIỀUTRỊ ? "selected" : null)">ĐÃ ĐIỀU TRỊ</option>
+                                                    <option value="1" selected="@(item.Status == SessionStatus.CHƯAĐIỀUTRỊ ? "selected" : null)">CHƯA ĐIỀU TRỊ</option>
+                                                    <option value="2" selected="@(item.Status == SessionStatus.ĐÃĐẶTLỊCH ? "selected" : null)">ĐÃ ĐẶT LỊCH</option>
+                                                </select>
+                                                <span asp-validation-for="Session.Status" class="text-danger"></span>
                                             </div>
                                             @if (item.Invoice.ListSessions.Count < item.Invoice.Quantity)
                                             {
                                                 <hr/>
+                                                <h4>Thông tin buổi điều trị tiếp theo</h4>
                                                 <div class="form-group">
                                                     <label asp-for="Session.SessionAppointment" class="control-label">Đặt lịch hẹn điều trị tiếp theo</label>
                                                     <input type="datetime-local" asp-for="NextAppointmentDateTime" class="form-control"/>
@@ -314,15 +324,7 @@
                                                     <span asp-validation-for="Session.SessionTreatment" class="text-danger"></span>
                                                 </div>
                                             }
-                                            <div class="form-group">
-                                                <label asp-for="Session.Status" class="control-label">Trạng thái</label>
-                                                <select asp-for="Session.Status" class="form-control">
-                                                    <option value="0" selected="@(item.Status == SessionStatus.ĐÃĐIỀUTRỊ ? "selected" : null)">ĐÃ ĐIỀU TRỊ</option>
-                                                    <option value="1" selected="@(item.Status == SessionStatus.CHƯAĐIỀUTRỊ ? "selected" : null)">CHƯA ĐIỀU TRỊ</option>
-                                                    <option value="2" selected="@(item.Status == SessionStatus.ĐÃĐẶTLỊCH ? "selected" : null)">ĐÃ ĐẶT LỊCH</option>
-                                                </select>
-                                                <span asp-validation-for="Session.Status" class="text-danger"></span>
-                                            </div>
+                                           
                                             <div hidden="" class="form-group">
                                                 <label asp-for="Session.InvoiceId" class="control-label"></label>
                                                 <input asp-for="Session.InvoiceId" value="@item.InvoiceId" class="form-control"></input>

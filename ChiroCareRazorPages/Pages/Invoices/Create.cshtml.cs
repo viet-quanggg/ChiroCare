@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObject;
+using BusinessObject.ChiroEnums;
 using DataAccess.Data;
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,7 @@ namespace ChiroCareRazorPages.Pages.Invoices
             if (id == null)
             {
                 var services = await _context.Services.ToListAsync();
+                ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role == BusinessObject.ChiroEnums.Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
                 ViewData["Services"] = new SelectList(services.Select(s => new {
                     ServiceId = s.ServiceId,
                     DisplayName = $"{s.ServiceName} - {s.ServicePrice.ToString("N0")} VND"
@@ -46,6 +48,7 @@ namespace ChiroCareRazorPages.Pages.Invoices
                 phone = id;
                 await OnPostIndex(phone);
                 var services = await _context.Services.ToListAsync();
+                ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role == BusinessObject.ChiroEnums.Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
                 ViewData["Services"] = new SelectList(services.Select(s => new {
                     ServiceId = s.ServiceId,
                     DisplayName = $"{s.ServiceName} - {s.ServicePrice.ToString("N0")} VND"
@@ -58,7 +61,7 @@ namespace ChiroCareRazorPages.Pages.Invoices
         [BindProperty]
         public Invoice Invoice { get; set; } = default!;
         [BindProperty] public User User { get; set; } = default!;
-        
+        [BindProperty] public Session Session { get; set; }
          public async Task<IActionResult> OnPostCreate(string[] servicesIds)
         {
             string phoneNum = HttpContext.Session.GetString("phone");
@@ -92,6 +95,15 @@ namespace ChiroCareRazorPages.Pages.Invoices
                 Invoice.Patient = invoiceUser;
             
                 invoiceUser.UserInvoices.Add(Invoice);
+                
+                Session.InvoiceId = Invoice.InvoiceId;
+                Session.SessionDate = DateTime.Now;
+                Session.Status = SessionStatus.ĐÃĐIỀUTRỊ;
+                Session.PatientId = invoiceUser.UserId;
+                Session.SessionTreatment = Invoice.InvoiceDescription;
+
+                _context.Sessions.Add(Session);
+                
                 _context.Entry(User).State = EntityState.Detached;
                 await _context.SaveChangesAsync();
                 return Redirect("/Customers/Details?id=" + invoiceUser.UserId);
@@ -127,6 +139,15 @@ namespace ChiroCareRazorPages.Pages.Invoices
                     Invoice.Patient = createdUser;
             
                     createdUser.UserInvoices.Add(Invoice);
+                    
+                    Session.InvoiceId = Invoice.InvoiceId;
+                    Session.SessionDate = DateTime.Now;
+                    Session.Status = SessionStatus.ĐÃĐIỀUTRỊ;
+                    Session.PatientId = createdUser.UserId;
+                    Session.SessionTreatment = Invoice.InvoiceDescription;
+
+                    _context.Sessions.Add(Session);
+                    
                     _context.Entry(User).State = EntityState.Detached;
                     await _context.SaveChangesAsync();
                     return Redirect("/Customers/Details?id=" + createdUser.UserId);
@@ -150,6 +171,7 @@ namespace ChiroCareRazorPages.Pages.Invoices
                     PhoneNumber = phone;
                 }
                 var services = await _context.Services.ToListAsync();
+                ViewData["TherapistId"] = new SelectList(_context.Users.Where(u => u.Role == BusinessObject.ChiroEnums.Role.NGƯỜIĐIỀUTRỊ), "UserId", "FullName");
                 ViewData["Services"] = new SelectList(services.Select(s => new {
                     ServiceId = s.ServiceId,
                     DisplayName = $"{s.ServiceName} - {s.ServicePrice.ToString("N0")} VND"
